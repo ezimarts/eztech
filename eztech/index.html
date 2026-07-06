@@ -1,709 +1,1471 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EZIMarts Cloud Web Solutions</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description"
+    content="EZI Web Tech designs high-converting websites, memorable digital brands, and secure AWS-powered web experiences for growing businesses.">
+  <title>EZI Web Tech | Professional Website Design & Development</title>
   <style>
+    :root {
+      --ink: #07111f;
+      --ink-2: #0c192b;
+      --panel: #102138;
+      --line: rgba(148, 163, 184, .18);
+      --cyan: #42d6ff;
+      --blue: #4f7cff;
+      --mint: #6ee7c8;
+      --white: #f8fbff;
+      --muted: #a9b8cb;
+      --paper: #f4f8fc;
+      --text: #142238;
+      --subtle: #617087;
+      --radius: 22px;
+      --shadow: 0 24px 70px rgba(2, 12, 27, .16);
+      --max: 1180px;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: #f8fafc;
-      color: #0f172a;
-      line-height: 1.6;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(2, 6, 23, 0.96);
-      color: white;
-      padding: 20px 8%;
-      display: flex;
-      justify-content: space-between;
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
       align-items: center;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 900;
-    }
-
-    .logo span {
-      color: #38bdf8;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 24px;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    nav a:hover {
-      color: #38bdf8;
-    }
-
-    .hero {
-      min-height: 90vh;
-      padding: 110px 8%;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 60px;
-      align-items: center;
-      color: white;
-      background:
-        radial-gradient(circle at top right, rgba(56, 189, 248, .25), transparent 35%),
-        radial-gradient(circle at bottom left, rgba(37, 99, 235, .22), transparent 35%),
-        linear-gradient(135deg, #020617, #0f172a 55%, #1e3a8a);
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(56, 189, 248, .12);
-      border: 1px solid rgba(56, 189, 248, .35);
-      color: #38bdf8;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      margin-bottom: 25px;
-    }
-
-    .hero h1 {
-      font-size: 62px;
-      line-height: 1.05;
-      margin-bottom: 25px;
-    }
-
-    .hero h1 span {
-      color: #38bdf8;
-    }
-
-    .hero p {
-      font-size: 20px;
-      color: #cbd5e1;
-      max-width: 720px;
-      margin-bottom: 35px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #38bdf8;
-      color: #020617;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 999px;
-      font-weight: 900;
-      margin-right: 12px;
-      transition: .25s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn.secondary {
-      background: transparent;
-      color: white;
-      border: 1px solid #64748b;
-    }
-
-    .architecture-card {
-      background: rgba(255, 255, 255, .10);
-      border: 1px solid rgba(255, 255, 255, .18);
-      backdrop-filter: blur(18px);
-      border-radius: 30px;
-      padding: 35px;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, .35);
-    }
-
-    .architecture-card h3 {
-      text-align: center;
-      font-size: 25px;
-      margin-bottom: 28px;
-    }
-
-    .arch-box {
-      background: rgba(255, 255, 255, .12);
-      padding: 16px;
-      border-radius: 16px;
-      text-align: center;
-      margin-bottom: 14px;
+      gap: 9px;
+      margin-bottom: 16px;
+      color: #137b9b;
+      font-size: 12px;
       font-weight: 800;
-      color: white;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
-    .arch-arrow {
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin-bottom: 46px;
+    }
+
+    .section-head.center {
+      margin-inline: auto;
       text-align: center;
-      color: #38bdf8;
-      font-size: 22px;
-      margin-bottom: 10px;
     }
 
-    .arch-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 15px;
+    .section-head.center .eyebrow::before {
+      display: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 54px);
+      color: var(--ink);
+    }
+
+    .section-head p {
+      margin-top: 16px;
+      color: var(--subtle);
+      font-size: 18px;
     }
 
     section {
-      padding: 90px 8%;
+      padding: 100px 0;
     }
 
-    .section-title {
-      text-align: center;
-      font-size: 44px;
-      color: #0f172a;
-      margin-bottom: 14px;
+    .nav-shell {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      transition: .25s ease;
     }
 
-    .section-subtitle {
-      text-align: center;
-      color: #64748b;
-      font-size: 19px;
-      margin-bottom: 55px;
+    .nav-shell.scrolled {
+      background: rgba(7, 17, 31, .88);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
     }
 
-    .stats {
-      background: white;
-      padding: 45px 8%;
+    .navbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: white;
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      font-size: 21px;
+    }
+
+    .brand-mark {
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 25px;
-      box-shadow: 0 15px 45px rgba(15, 23, 42, .08);
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      border: 1px solid rgba(66, 214, 255, .6);
+      border-radius: 11px;
+      background: rgba(66, 214, 255, .1);
+      color: var(--cyan);
+      font-size: 13px;
+      box-shadow: inset 0 0 16px rgba(66, 214, 255, .08);
     }
 
-    .stat-box {
-      text-align: center;
-      padding: 25px;
-      border-radius: 20px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1px solid currentColor;
+      border-radius: 5px;
+      transform: rotate(45deg);
     }
 
-    .stat-box h3 {
-      font-size: 36px;
-      color: #0284c7;
+    .brand span {
+      color: var(--cyan);
     }
 
-    .stat-box p {
-      color: #475569;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #cfdaea;
+      text-decoration: none;
+      font-size: 14px;
       font-weight: 700;
+      transition: .2s;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 34px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 16px 45px rgba(15, 23, 42, .08);
-      transition: .25s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 65px rgba(15, 23, 42, .15);
-    }
-
-    .icon {
-      font-size: 40px;
-      margin-bottom: 18px;
-    }
-
-    .card h3 {
-      font-size: 23px;
-      color: #0f172a;
-      margin-bottom: 14px;
-    }
-
-    .card p {
-      color: #475569;
-    }
-
-    .why {
-      background: #020617;
+    .nav-links a:hover {
       color: white;
     }
 
-    .why .section-title {
+    .nav-cta {
+      padding: 10px 17px;
+      border: 1px solid rgba(66, 214, 255, .4);
+      border-radius: 10px;
+      background: rgba(66, 214, 255, .09);
+      color: var(--cyan) !important;
+    }
+
+    .menu {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 21px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 820px;
+      padding: 150px 0 90px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background: var(--ink);
       color: white;
     }
 
-    .why .section-subtitle {
-      color: #cbd5e1;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background-image: linear-gradient(rgba(89, 126, 170, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(89, 126, 170, .15) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
     }
 
-    .why-grid {
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 720px;
+      height: 720px;
+      right: -240px;
+      top: -240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 124, 255, .25), transparent 65%);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 70px;
+      align-items: center;
     }
 
-    .why-item {
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .14);
-      border-radius: 22px;
-      padding: 28px;
+    .status {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 13px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(110, 231, 200, .28);
+      border-radius: 999px;
+      background: rgba(110, 231, 200, .08);
+      color: #9cf6dc;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
-    .why-item h3 {
-      color: #38bdf8;
-      margin-bottom: 12px;
-      font-size: 22px;
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 0 5px rgba(110, 231, 200, .12);
+      animation: pulse 2s infinite;
     }
 
-    .why-item p {
-      color: #cbd5e1;
+    @keyframes pulse {
+      50% {
+        box-shadow: 0 0 0 9px rgba(110, 231, 200, 0);
+      }
     }
 
-    .tech {
-      background: #f1f5f9;
+    .hero h1 {
+      max-width: 730px;
+      font-size: clamp(48px, 7vw, 78px);
     }
 
-    .tech-category {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 12px 35px rgba(15, 23, 42, .07);
+    .gradient-text {
+      background: linear-gradient(90deg, var(--cyan), #9baeff 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    .tech-category h3 {
-      color: #0284c7;
-      margin-bottom: 20px;
-      font-size: 23px;
+    .hero-copy>p {
+      max-width: 650px;
+      margin: 25px 0 34px;
+      color: var(--muted);
+      font-size: 19px;
     }
 
-    .tech-tags {
+    .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
 
-    .tech-tags span {
-      background: #e0f2fe;
-      color: #0f172a;
-      padding: 10px 16px;
-      border-radius: 999px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 21px;
+      border: 1px solid transparent;
+      border-radius: 12px;
       font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #04101d;
+      background: linear-gradient(135deg, var(--cyan), #80e8ff);
+      box-shadow: 0 12px 34px rgba(66, 214, 255, .2);
+    }
+
+    .btn-ghost {
+      color: white;
+      border-color: rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-top: 35px;
+      color: #8fa0b7;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .trust-row span::before {
+      content: "✓";
+      margin-right: 7px;
+      color: var(--mint);
+    }
+
+    .console {
+      position: relative;
+      border: 1px solid rgba(130, 158, 195, .22);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(19, 39, 66, .96), rgba(9, 24, 43, .96));
+      box-shadow: 0 38px 90px rgba(0, 0, 0, .42);
+      overflow: hidden;
+    }
+
+    .console::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(66, 214, 255, .04), transparent 70%);
+    }
+
+    .console-bar {
+      height: 48px;
+      padding: 0 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      color: #7f91a9;
+      font: 600 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #354a65;
+    }
+
+    .dots i:first-child {
+      background: #ff6b73;
+    }
+
+    .dots i:nth-child(2) {
+      background: #f4c152;
+    }
+
+    .dots i:last-child {
+      background: #58d68d;
+    }
+
+    .arch {
+      padding: 25px;
+    }
+
+    .arch-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      color: #7f91a9;
+      font: 700 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .arch-label b {
+      color: var(--mint);
+    }
+
+    .node {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 62px;
+      padding: 12px 15px;
+      border: 1px solid rgba(130, 158, 195, .16);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .035);
+      transition: .25s;
+    }
+
+    .node:hover {
+      border-color: rgba(66, 214, 255, .5);
+      background: rgba(66, 214, 255, .07);
+      transform: translateX(4px);
+    }
+
+    .node-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 35px;
+      height: 35px;
+      border-radius: 9px;
+      background: rgba(66, 214, 255, .1);
+      color: var(--cyan);
+      font: 800 12px ui-monospace, monospace;
+    }
+
+    .node strong {
+      display: block;
       font-size: 14px;
     }
 
-    .process-grid {
+    .node small {
+      display: block;
+      color: #7f91a9;
+      font-size: 11px;
+    }
+
+    .connector {
+      width: 1px;
+      height: 20px;
+      margin-left: 32px;
+      background: linear-gradient(var(--cyan), rgba(66, 214, 255, .1));
+    }
+
+    .node-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .proof {
+      position: relative;
+      z-index: 3;
+      padding: 0;
+      margin-top: -42px;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid #dbe5f0;
+      border-radius: 18px;
+      background: white;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .proof-item {
+      padding: 27px;
+      border-right: 1px solid #e4ebf3;
+    }
+
+    .proof-item:last-child {
+      border: 0;
+    }
+
+    .proof-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 25px;
+      letter-spacing: -.04em;
+    }
+
+    .proof-item span {
+      color: var(--subtle);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .services {
+      background: var(--paper);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+
+    .filter {
+      padding: 9px 15px;
+      border: 1px solid #d8e3ef;
+      border-radius: 999px;
+      background: white;
+      color: #526279;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .filter.active,
+    .filter:hover {
+      border-color: var(--blue);
+      background: var(--ink);
+      color: white;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service {
+      position: relative;
+      min-height: 285px;
+      padding: 28px;
+      border: 1px solid #dfe8f2;
+      border-radius: var(--radius);
+      background: white;
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .service::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 124, 255, .11), transparent 68%);
+    }
+
+    .service:hover {
+      transform: translateY(-6px);
+      border-color: #b9cae0;
+      box-shadow: 0 20px 45px rgba(7, 17, 31, .09);
+    }
+
+    .service.hidden {
+      display: none;
+    }
+
+    .service-code {
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 28px;
+      border-radius: 13px;
+      background: #edf7ff;
+      color: #087ca2;
+      font: 900 13px ui-monospace, monospace;
+    }
+
+    .service h3 {
+      margin-bottom: 12px;
+      font-size: 22px;
+      color: var(--ink);
+    }
+
+    .service p {
+      color: var(--subtle);
+      font-size: 15px;
+    }
+
+    .service a {
+      position: absolute;
+      bottom: 25px;
+      color: #245bd7;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .outcomes {
+      background: var(--ink);
+      color: white;
+    }
+
+    .outcomes .eyebrow {
+      color: var(--cyan);
+    }
+
+    .outcomes h2 {
+      color: white;
+    }
+
+    .outcomes .section-head p {
+      color: var(--muted);
+    }
+
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+    }
+
+    .outcome-panel {
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--ink-2);
+    }
+
+    .outcome-list {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .outcome-list li {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .check {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(110, 231, 200, .1);
+      color: var(--mint);
+      font-weight: 900;
+    }
+
+    .outcome-list strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .outcome-list p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 9px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .metric b {
+      color: white;
+      font-size: 15px;
+    }
+
+    .bar {
+      height: 8px;
+      margin-bottom: 27px;
+      border-radius: 99px;
+      background: #20334d;
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transform-origin: left;
+      animation: grow 1.5s ease both;
+    }
+
+    @keyframes grow {
+      from {
+        transform: scaleX(0);
+      }
+    }
+
+    .mini-note {
+      margin-top: 12px;
+      padding: 17px;
+      border-left: 2px solid var(--cyan);
+      background: rgba(66, 214, 255, .05);
+      color: #b9c6d7;
+      font-size: 13px;
+    }
+
+    .process-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-grid::before {
+      content: "";
+      position: absolute;
+      top: 23px;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      background: #cbd8e7;
     }
 
     .step {
-      background: white;
-      padding: 30px;
-      border-radius: 22px;
-      border-left: 6px solid #38bdf8;
-      box-shadow: 0 14px 35px rgba(15, 23, 42, .08);
+      position: relative;
+      z-index: 1;
+      padding: 0 15px;
     }
 
-    .step-number {
-      font-size: 34px;
-      font-weight: 900;
-      color: #38bdf8;
-      margin-bottom: 12px;
+    .step-num {
+      display: grid;
+      place-items: center;
+      width: 47px;
+      height: 47px;
+      margin-bottom: 23px;
+      border: 5px solid var(--paper);
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--cyan);
+      font: 800 12px ui-monospace, monospace;
+    }
+
+    .step h3 {
+      margin-bottom: 9px;
+      font-size: 20px;
+    }
+
+    .step p {
+      color: var(--subtle);
+      font-size: 14px;
+    }
+
+    .stack {
+      background: white;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border: 1px solid #dce6f0;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .stack-item {
+      min-height: 112px;
+      padding: 20px 12px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 8px;
+      text-align: center;
+      border-right: 1px solid #e3ebf3;
+      border-bottom: 1px solid #e3ebf3;
+      transition: .2s;
+    }
+
+    .stack-item:hover {
+      background: #f0f8ff;
+      color: #175ed0;
+    }
+
+    .stack-item b {
+      font: 900 13px ui-monospace, monospace;
+    }
+
+    .stack-item small {
+      color: var(--subtle);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      border: 1px solid #dce6f0;
+      border-radius: 14px;
+      background: white;
+    }
+
+    summary {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      cursor: pointer;
+      list-style: none;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .plus {
+      color: #3571de;
+      transition: .2s;
+    }
+
+    details[open] .plus {
+      transform: rotate(45deg);
+    }
+
+    details p {
+      padding: 0 20px 20px;
+      color: var(--subtle);
+      font-size: 15px;
     }
 
     .contact {
-      background: linear-gradient(135deg, #020617, #0f172a, #1e3a8a);
+      position: relative;
+      padding: 80px 0;
+      background: linear-gradient(135deg, #0c2340, #102b53);
       color: white;
-      text-align: center;
+      overflow: hidden;
     }
 
-    .contact h2 {
-      font-size: 42px;
-      margin-bottom: 18px;
-    }
-
-    .contact p {
-      color: #cbd5e1;
-      font-size: 19px;
-      margin-bottom: 32px;
-    }
-
-    .business-contact {
-      background: white;
+    .contact::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -120px;
+      top: -220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(66, 214, 255, .2), transparent 65%);
     }
 
     .contact-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px;
+      align-items: center;
     }
 
-    .contact-box {
-      background: #f8fafc;
-      border-radius: 22px;
-      padding: 32px;
-      text-align: center;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 12px 35px rgba(15, 23, 42, .08);
+    .contact h2 {
+      color: white;
     }
 
-    .contact-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
+    .contact-copy>p {
+      margin: 18px 0 27px;
+      color: #b7c6d9;
+      font-size: 17px;
     }
 
-    .contact-box h3 {
-      color: #0284c7;
-      margin-bottom: 12px;
+    .contact-points {
+      display: grid;
+      gap: 12px;
+      color: #d7e1ed;
+      font-size: 14px;
     }
 
-    .contact-box a {
-      color: #0f172a;
-      text-decoration: none;
+    .contact-points span b {
+      color: var(--cyan);
+      margin-right: 8px;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      padding: 26px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 20px;
+      background: rgba(5, 16, 31, .48);
+      backdrop-filter: blur(12px);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #aec0d4;
+      font-size: 11px;
       font-weight: 800;
-      font-size: 18px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 9px;
+      outline: none;
+      background: rgba(255, 255, 255, .06);
+      color: white;
+    }
+
+    .field select option {
+      color: var(--ink);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(66, 214, 255, .09);
+    }
+
+    .field textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .form .btn {
+      grid-column: 1 / -1;
+      border: 0;
     }
 
     footer {
-      background: #020617;
-      color: #94a3b8;
-      text-align: center;
-      padding: 28px;
+      padding: 34px 0;
+      background: #050d18;
+      color: #8495aa;
     }
 
-    @media (max-width: 900px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 13px;
+    }
 
-      nav a {
-        display: inline-block;
-        margin: 8px;
+    .footer-links {
+      display: flex;
+      gap: 19px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 980px) {
+
+      .hero-grid,
+      .outcome-grid,
+      .contact-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
       }
 
       .hero {
-        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .console {
+        max-width: 620px;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .proof-item:nth-child(2) {
+        border-right: 0;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      section {
+        padding: 76px 0;
+      }
+
+      .wrap {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 14px;
+        right: 14px;
+        display: none;
+        padding: 20px;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 16px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: #0a1728;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-cta {
         text-align: center;
       }
 
-      .hero h1 {
-        font-size: 40px;
+      .hero {
+        padding-top: 125px;
+      }
+
+      .hero-grid {
+        gap: 45px;
+      }
+
+      .hero-copy>p {
+        font-size: 17px;
+      }
+
+      .console {
+        border-radius: 17px;
+      }
+
+      .node-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof {
+        margin-top: -25px;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .proof-item {
+        padding: 20px;
+      }
+
+      .service-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form {
+        grid-template-columns: 1fr;
+      }
+
+      .field {
+        grid-column: 1 / -1;
+      }
+
+      .footer-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <header>
-    <div class="logo">EZI<span>Marts</span></div>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#technology">Technology</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="nav-shell" id="nav">
+    <div class="navbar wrap">
+      <a class="brand" href="#top" aria-label="EZI Web Tech home"><span class="brand-mark">E</span> EZI <span>Web
+          Tech</span></a>
+      <button class="menu" id="menu" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#services">Services</a><a href="#outcomes">Why us</a><a href="#process">Process</a><a
+          href="#technology">Technology</a><a class="nav-cta" href="#contact">Start a project</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <div>
-      <span class="hero-badge">AWS CLOUD CONSULTING • SERVERLESS • TERRAFORM</span>
-      <h1>Modern AWS Cloud Solutions for <span>Growing Businesses</span></h1>
-      <p>
-        EZIMarts builds secure, scalable, cost-optimized websites and cloud applications using
-        AWS serverless technology, Terraform, DevOps automation, and enterprise cloud best practices.
-      </p>
-      <a href="#contact" class="btn">Start Your Project</a>
-      <a href="#services" class="btn secondary">View Services</a>
-    </div>
-
-    <div class="architecture-card">
-      <h3>AWS Serverless Architecture</h3>
-
-      <div class="arch-box">CloudFront CDN</div>
-      <div class="arch-arrow">↓</div>
-
-      <div class="arch-box">Amazon S3 Static Website</div>
-      <div class="arch-arrow">↓</div>
-
-      <div class="arch-box">API Gateway</div>
-      <div class="arch-arrow">↓</div>
-
-      <div class="arch-box">AWS Lambda</div>
-
-      <div class="arch-grid">
-        <div class="arch-box">DynamoDB</div>
-        <div class="arch-box">ECS Fargate</div>
-        <div class="arch-box">SNS / SES</div>
-        <div class="arch-box">EventBridge</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="stats">
-    <div class="stat-box">
-      <h3>20+</h3>
-      <p>Years IT Experience</p>
-    </div>
-    <div class="stat-box">
-      <h3>AWS</h3>
-      <p>Cloud Certified</p>
-    </div>
-    <div class="stat-box">
-      <h3>IaC</h3>
-      <p>Terraform Driven</p>
-    </div>
-    <div class="stat-box">
-      <h3>24/7</h3>
-      <p>Cloud Ready Support</p>
-    </div>
-  </section>
-
-  <section id="services">
-    <h2 class="section-title">Our Cloud & Website Services</h2>
-    <p class="section-subtitle">Professional solutions for small businesses, startups, and enterprises.</p>
-
-    <div class="cards">
-      <div class="card">
-        <div class="icon">🌐</div>
-        <h3>Website Development</h3>
-        <p>Modern, responsive websites for businesses, professionals, and organizations.</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">🛒</div>
-        <h3>E-Commerce Platforms</h3>
-        <p>Online stores with product catalog, payment integration, and order management.</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">☁️</div>
-        <h3>AWS Cloud Applications</h3>
-        <p>Serverless apps using API Gateway, Lambda, DynamoDB, CloudFront, and S3.</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">🚀</div>
-        <h3>Cloud Migration</h3>
-        <p>Move applications and websites to AWS with secure and scalable architecture.</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">⚙️</div>
-        <h3>DevOps Automation</h3>
-        <p>CI/CD, Terraform, infrastructure automation, and repeatable deployments.</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">💰</div>
-        <h3>Cost Optimization</h3>
-        <p>Improve performance while reducing unnecessary cloud infrastructure cost.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="why">
-    <h2 class="section-title">Why Businesses Choose EZIMarts</h2>
-    <p class="section-subtitle">
-      Enterprise-grade cloud solutions built with AWS Well-Architected best practices.
-    </p>
-
-    <div class="why-grid">
-      <div class="why-item">
-        <h3>Cost Optimized</h3>
-        <p>Serverless architecture helps you pay only for the resources your application uses.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Secure by Design</h3>
-        <p>Built with SSL, IAM, least privilege access, and AWS security best practices.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Highly Scalable</h3>
-        <p>Your platform can grow from small traffic to enterprise-level demand.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Terraform Automation</h3>
-        <p>Infrastructure as Code makes deployments consistent, repeatable, and reliable.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>High Availability</h3>
-        <p>CloudFront, S3, Lambda, DynamoDB, and AWS managed services improve reliability.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>End-to-End Delivery</h3>
-        <p>From design and development to deployment, testing, launch, and support.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="technology" class="tech">
-    <h2 class="section-title">Technology Stack</h2>
-    <p class="section-subtitle">AWS cloud-native tools used to build reliable and modern applications.</p>
-
-    <div class="cards">
-      <div class="tech-category">
-        <h3>Cloud Infrastructure</h3>
-        <div class="tech-tags">
-          <span>Amazon S3</span>
-          <span>CloudFront</span>
-          <span>Route 53</span>
-          <span>ACM SSL</span>
-          <span>VPC</span>
-          <span>EC2</span>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <div class="status"><i class="pulse"></i> Now booking website projects</div>
+          <h1>Websites designed to make your business <span class="gradient-text">impossible to ignore.</span></h1>
+          <p>EZI Web Tech combines strategic design, thoughtful user experience, and modern engineering to turn visitors
+            into customers.</p>
+          <div class="actions"><a class="btn btn-primary" href="#contact">Get a free website consultation
+              <span>→</span></a><a class="btn btn-ghost" href="#services">Explore our services</a></div>
+          <div class="trust-row"><span>Mobile-first design</span><span>Fast & SEO-ready</span><span>Secure AWS
+              hosting</span></div>
+        </div>
+        <div class="console" aria-label="Example AWS architecture">
+          <div class="console-bar">
+            <div class="dots"><i></i><i></i><i></i></div><span>production.architecture</span><span>● LIVE</span>
+          </div>
+          <div class="arch">
+            <div class="arch-label"><span>Your digital experience</span><b>Launch ready</b></div>
+            <div class="node"><span class="node-icon">UX</span>
+              <div><strong>Strategy + UX Design</strong><small>Goals · content · customer journeys</small></div>
+            </div>
+            <div class="connector"></div>
+            <div class="node"><span class="node-icon">UI</span>
+              <div><strong>Responsive Web Design</strong><small>Brand-led interfaces for every screen</small></div>
+            </div>
+            <div class="connector"></div>
+            <div class="node-grid">
+              <div class="node"><span class="node-icon">DEV</span>
+                <div><strong>Development</strong><small>Clean, fast code</small></div>
+              </div>
+              <div class="node"><span class="node-icon">SEO</span>
+                <div><strong>Search Ready</strong><small>Built to be found</small></div>
+              </div>
+              <div class="node"><span class="node-icon">AWS</span>
+                <div><strong>Cloud Hosting</strong><small>Secure delivery</small></div>
+              </div>
+              <div class="node"><span class="node-icon">GO</span>
+                <div><strong>Launch + Care</strong><small>Support included</small></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="tech-category">
-        <h3>Compute & Containers</h3>
-        <div class="tech-tags">
-          <span>AWS Lambda</span>
-          <span>ECS</span>
-          <span>AWS Fargate</span>
-          <span>EKS</span>
-        </div>
-      </div>
-
-      <div class="tech-category">
-        <h3>Database & Storage</h3>
-        <div class="tech-tags">
-          <span>DynamoDB</span>
-          <span>RDS</span>
-          <span>S3 Storage</span>
-        </div>
-      </div>
-
-      <div class="tech-category">
-        <h3>Integration & Messaging</h3>
-        <div class="tech-tags">
-          <span>API Gateway</span>
-          <span>EventBridge</span>
-          <span>SNS</span>
-          <span>SES</span>
-          <span>SQS</span>
-          <span>Step Functions</span>
-        </div>
-      </div>
-
-      <div class="tech-category">
-        <h3>DevOps & Automation</h3>
-        <div class="tech-tags">
-          <span>Terraform</span>
-          <span>CloudFormation</span>
-          <span>GitHub Actions</span>
-          <span>CI/CD</span>
-        </div>
-      </div>
-
-      <div class="tech-category">
-        <h3>Security & Reliability</h3>
-        <div class="tech-tags">
-          <span>IAM</span>
-          <span>CloudWatch</span>
-          <span>CloudTrail</span>
-          <span>AWS WAF</span>
-        </div>
+    <div class="proof">
+      <div class="proof-grid wrap reveal">
+        <div class="proof-item"><strong>20+ years</strong><span>Technology experience</span></div>
+        <div class="proof-item"><strong>100% responsive</strong><span>Designed for every device</span></div>
+        <div class="proof-item"><strong>SEO-ready</strong><span>Strong technical foundation</span></div>
+        <div class="proof-item"><strong>End-to-end</strong><span>Design, build, launch</span></div>
       </div>
     </div>
-  </section>
 
-  <section id="process">
-    <h2 class="section-title">How We Deliver</h2>
-    <p class="section-subtitle">A clear path from business idea to production launch.</p>
-
-    <div class="process-grid">
-      <div class="step">
-        <div class="step-number">01</div>
-        <h3>Consultation</h3>
-        <p>We review your business goals, website needs, and cloud requirements.</p>
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow">Website services</span>
+          <h2>Everything your online presence needs to perform.</h2>
+          <p>From brand direction and UX to development, hosting, and ongoing improvement—one expert partner from idea
+            to launch.</p>
+        </div>
+        <div class="filter-row reveal" aria-label="Filter services"><button class="filter active" data-filter="all">All
+            services</button><button class="filter" data-filter="build">Design & build</button><button class="filter"
+            data-filter="cloud">Web platforms</button><button class="filter" data-filter="optimize">Growth &
+            care</button></div>
+        <div class="service-grid">
+          <article class="service reveal" data-category="build"><span class="service-code">WEB</span>
+            <h3>Business websites</h3>
+            <p>Distinctive, responsive websites built around your brand, customer journey, and conversion goals.</p><a
+              href="#contact">Plan your website →</a>
+          </article>
+          <article class="service reveal" data-category="build"><span class="service-code">UX</span>
+            <h3>UI/UX & brand design</h3>
+            <p>Clear information architecture, polished interfaces, and a visual system that earns customer trust.</p><a
+              href="#contact">Shape your brand →</a>
+          </article>
+          <article class="service reveal" data-category="cloud"><span class="service-code">COM</span>
+            <h3>E-commerce websites</h3>
+            <p>Easy-to-shop storefronts with secure payments, product management, and streamlined order journeys.</p><a
+              href="#contact">Build your store →</a>
+          </article>
+          <article class="service reveal" data-category="cloud"><span class="service-code">APP</span>
+            <h3>Custom web applications</h3>
+            <p>Secure portals, booking tools, forms, dashboards, and business workflows tailored to your operation.</p>
+            <a href="#contact">Design your platform →</a>
+          </article>
+          <article class="service reveal" data-category="optimize"><span class="service-code">SEO</span>
+            <h3>SEO & performance</h3>
+            <p>Technical SEO, accessibility, speed optimization, and analytics that turn your website into a growth
+              asset.</p><a href="#contact">Improve your website →</a>
+          </article>
+          <article class="service reveal" data-category="optimize"><span class="service-code">CARE</span>
+            <h3>Website care plans</h3>
+            <p>Reliable updates, monitoring, backups, content support, and ongoing improvements after launch.</p><a
+              href="#contact">Protect your investment →</a>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <div class="step">
-        <div class="step-number">02</div>
-        <h3>Design</h3>
-        <p>We create a modern, professional, and mobile-friendly UI design.</p>
+    <section class="outcomes" id="outcomes">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow">Designed for results</span>
+          <h2>Beautiful is only the beginning.</h2>
+          <p>Your website should communicate clearly, load quickly, build trust, and make the next step effortless.</p>
+        </div>
+        <div class="outcome-grid">
+          <div class="outcome-panel reveal">
+            <ul class="outcome-list">
+              <li><span class="check">✓</span>
+                <div><strong>Customer-first UX</strong>
+                  <p>Every page guides visitors toward the information and action that matters most.</p>
+                </div>
+              </li>
+              <li><span class="check">✓</span>
+                <div><strong>Speed, SEO, accessibility</strong>
+                  <p>A strong technical foundation improves discovery, usability, and customer confidence.</p>
+                </div>
+              </li>
+              <li><span class="check">✓</span>
+                <div><strong>Easy ownership</strong>
+                  <p>Clear handover, dependable hosting, and ongoing care without hidden complexity.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="outcome-panel reveal">
+            <div class="arch-label"><span>Experience priorities</span><b>Optimized</b></div>
+            <div class="metric"><span>Mobile experience</span><b>98%</b></div>
+            <div class="bar"><i style="--w:98%"></i></div>
+            <div class="metric"><span>Visual clarity</span><b>95%</b></div>
+            <div class="bar"><i style="--w:95%"></i></div>
+            <div class="metric"><span>Performance foundation</span><b>94%</b></div>
+            <div class="bar"><i style="--w:94%"></i></div>
+            <div class="metric"><span>Conversion readiness</span><b>92%</b></div>
+            <div class="bar"><i style="--w:92%"></i></div>
+            <p class="mini-note">Every creative decision is balanced against clarity, speed, accessibility, and your
+              business goals.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="step">
-        <div class="step-number">03</div>
-        <h3>Build</h3>
-        <p>We develop the frontend, backend APIs, database, and AWS infrastructure.</p>
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head center reveal"><span class="eyebrow">Our design process</span>
+          <h2>From first idea to confident launch.</h2>
+          <p>A collaborative process with clear milestones, visible progress, and thoughtful decisions at every stage.
+          </p>
+        </div>
+        <div class="process-grid">
+          <div class="step reveal"><span class="step-num">01</span>
+            <h3>Discover</h3>
+            <p>Clarify your audience, goals, offers, content, budget, and measures of success.</p>
+          </div>
+          <div class="step reveal"><span class="step-num">02</span>
+            <h3>Design</h3>
+            <p>Create the site structure, customer journey, visual direction, and responsive interface.</p>
+          </div>
+          <div class="step reveal"><span class="step-num">03</span>
+            <h3>Build</h3>
+            <p>Develop, optimize, connect forms and analytics, and test across devices.</p>
+          </div>
+          <div class="step reveal"><span class="step-num">04</span>
+            <h3>Launch & grow</h3>
+            <p>Deploy securely, measure performance, and support ongoing improvements.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="step">
-        <div class="step-number">04</div>
-        <h3>Deploy</h3>
-        <p>We launch using AWS, SSL, CloudFront, Terraform, monitoring, and security.</p>
+    <section class="stack" id="technology">
+      <div class="wrap">
+        <div class="section-head center reveal"><span class="eyebrow">Modern foundations</span>
+          <h2>Creative design backed by serious technology.</h2>
+          <p>We choose dependable tools for speed, security, maintainability, and a smooth customer experience.</p>
+        </div>
+        <div class="stack-grid reveal">
+          <div class="stack-item"><b>CloudFront</b><small>Edge delivery</small></div>
+          <div class="stack-item"><b>Lambda</b><small>Serverless compute</small></div>
+          <div class="stack-item"><b>API Gateway</b><small>Secure APIs</small></div>
+          <div class="stack-item"><b>DynamoDB</b><small>Managed data</small></div>
+          <div class="stack-item"><b>Amazon S3</b><small>Object storage</small></div>
+          <div class="stack-item"><b>Route 53</b><small>Global DNS</small></div>
+          <div class="stack-item"><b>Terraform</b><small>Infrastructure code</small></div>
+          <div class="stack-item"><b>GitHub Actions</b><small>CI/CD</small></div>
+          <div class="stack-item"><b>EventBridge</b><small>Event routing</small></div>
+          <div class="stack-item"><b>CloudWatch</b><small>Observability</small></div>
+          <div class="stack-item"><b>AWS WAF</b><small>Edge security</small></div>
+          <div class="stack-item"><b>ECS Fargate</b><small>Containers</small></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" class="contact">
-    <h2>Ready to Launch Your Website?</h2>
-    <p>Let EZIMarts build your modern AWS-powered website or business platform.</p>
-    <a href="mailto:ezimarts.info@gmail.com" class="btn">Request Free Consultation</a>
-  </section>
-
-  <section class="business-contact">
-    <h2 class="section-title">Contact EZIMarts</h2>
-    <p class="section-subtitle">We would love to discuss your next project.</p>
-
-    <div class="contact-grid">
-      <div class="contact-box">
-        <div class="contact-icon">📞</div>
-        <h3>Call Us</h3>
-        <a href="tel:+16466374619">+1 (646) 637-4619</a>
+    <section>
+      <div class="faq-grid wrap">
+        <div class="section-head reveal"><span class="eyebrow">Common questions</span>
+          <h2>Clarity before commitment.</h2>
+          <p>Every engagement starts with a practical conversation about fit, risk, and the best next step.</p>
+        </div>
+        <div class="faq-list reveal">
+          <details open>
+            <summary>What kinds of websites do you design?<span class="plus">+</span></summary>
+            <p>We create professional business websites, service-company sites, e-commerce experiences, landing pages,
+              portfolios, and custom web applications.</p>
+          </details>
+          <details>
+            <summary>Can you redesign my existing website?<span class="plus">+</span></summary>
+            <p>Yes. We can retain what works, improve your messaging and user experience, modernize the visual design,
+              and rebuild the technical foundation.</p>
+          </details>
+          <details>
+            <summary>Will my website work well on phones?<span class="plus">+</span></summary>
+            <p>Absolutely. Every site is designed mobile-first and tested across common screen sizes, browsers, and
+              interaction methods.</p>
+          </details>
+          <details>
+            <summary>How does a website project begin?<span class="plus">+</span></summary>
+            <p>We start with a free consultation to understand your goals and recommend the right scope, timeline, and
+              next step.</p>
+          </details>
+        </div>
       </div>
+    </section>
 
-      <div class="contact-box">
-        <div class="contact-icon">✉️</div>
-        <h3>Email</h3>
-        <a href="mailto:ezimarts.info@gmail.com">ezimarts.info@gmail.com</a>
+    <section class="contact" id="contact">
+      <div class="contact-grid wrap">
+        <div class="contact-copy reveal"><span class="eyebrow">Free consultation</span>
+          <h2>Let’s build a website your customers remember.</h2>
+          <p>Tell us about your business, your audience, and what your current website needs to do better. We’ll reply
+            with a practical next step.</p>
+          <div class="contact-points"><span><b>EMAIL</b> ezimarts.info@gmail.com</span><span><b>PHONE</b> +1 (646)
+              637-4619</span><span><b>BASE</b> Townsend, Delaware · Serving clients remotely</span></div>
+        </div>
+        <form class="form reveal" id="contactForm">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required
+              placeholder="Your name"></div>
+          <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email"
+              autocomplete="email" required placeholder="you@company.com"></div>
+          <div class="field full"><label for="service">What can we help with?</label><select id="service"
+              name="service">
+              <option>New business website</option>
+              <option>Website redesign</option>
+              <option>E-commerce website</option>
+              <option>Custom web application</option>
+              <option>SEO, performance, or website care</option>
+            </select></div>
+          <div class="field full"><label for="message">Project context</label><textarea id="message" name="message"
+              required placeholder="A few details about your goals, timeline, or current challenge..."></textarea></div>
+          <button class="btn btn-primary" type="submit">Send project brief <span>→</span></button>
+        </form>
       </div>
-
-      <div class="contact-box">
-        <div class="contact-icon">📍</div>
-        <h3>Location</h3>
-        <p>Townsend, Delaware, USA</p>
-      </div>
-
-      <div class="contact-box">
-        <div class="contact-icon">🕒</div>
-        <h3>Business Hours</h3>
-        <p>Monday – Friday</p>
-        <p>9:00 AM – 6:00 PM EST</p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
-    <p>© 2026 EZIMarts LLC. All rights reserved.</p>
-    <p>Built with AWS Serverless Technology</p>
+    <div class="footer-row wrap"><a class="brand" href="#top"><span class="brand-mark">E</span> EZI <span>Web
+          Tech</span></a>
+      <p>© 2026 EZI Web Tech. Professional website design & development.</p>
+      <div class="footer-links"><a href="mailto:ezimarts.info@gmail.com">Email</a><a href="tel:+16466374619">Call</a>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    const nav = document.querySelector('#nav');
+    const menu = document.querySelector('#menu');
+    const links = document.querySelector('#navLinks');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+    menu.addEventListener('click', () => { const open = links.classList.toggle('open'); menu.setAttribute('aria-expanded', open); menu.textContent = open ? '×' : '☰'; });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.textContent = '☰'; }));
+
+    const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active')); button.classList.add('active');
+      document.querySelectorAll('.service').forEach(card => card.classList.toggle('hidden', button.dataset.filter !== 'all' && card.dataset.category !== button.dataset.filter));
+    }));
+
+    document.querySelector('#contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const subject = encodeURIComponent(`EZI Web Tech website inquiry: ${data.get('service')}`);
+      const body = encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\nService: ${data.get('service')}\n\n${data.get('message')}`);
+      location.href = `mailto:ezimarts.info@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 
 </html>

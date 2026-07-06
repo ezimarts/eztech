@@ -1,0 +1,7 @@
+aws_region             = "us-east-1"
+project_name           = "ezimarts"
+# domain_name          = "ezimarts.com"
+# hosted_zone_id       = "Z123456789ABCDEFG"
+stripe_publishable_key = "pk_test_REPLACE_ME"
+stripe_secret_key      = "sk_test_REPLACE_ME"
+paypal_client_id       = "REPLACE_WITH_PAYPAL_CLIENT_ID"

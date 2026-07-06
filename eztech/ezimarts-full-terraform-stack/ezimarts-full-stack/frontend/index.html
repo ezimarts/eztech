@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EZIMarts | AWS Web Development & Marketplace</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+    html{scroll-behavior:smooth}
+    body{background:#f8fafc;color:#0f172a;line-height:1.6;overflow-x:hidden}
+    #splashScreen{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:radial-gradient(circle at top left,rgba(56,189,248,.35),transparent 30%),linear-gradient(135deg,#020617,#0f172a 55%,#1e3a8a);color:white;transition:.8s}
+    #splashScreen.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .splash-card{width:min(92%,620px);text-align:center;padding:48px 34px;border-radius:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(18px);box-shadow:0 35px 110px rgba(0,0,0,.45);animation:pop .8s ease both}
+    .splash-logo{width:115px;height:115px;margin:0 auto 20px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(135deg,#38bdf8,#f97316);font-size:34px;font-weight:900;color:#020617}
+    .splash-card h1{font-size:42px;line-height:1.1}.splash-card span,.logo span,.hero h1 span{color:#38bdf8}.splash-card p{color:#cbd5e1;margin:14px 0 25px;font-size:18px}
+    .loader{width:260px;height:8px;margin:auto;border-radius:999px;background:rgba(255,255,255,.15);overflow:hidden}.loader span{display:block;width:45%;height:100%;background:#38bdf8;border-radius:999px;animation:load 1.4s infinite ease-in-out}
+    @keyframes load{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}@keyframes pop{from{opacity:0;transform:translateY(25px) scale(.96)}to{opacity:1;transform:none}}
+    header{position:sticky;top:0;z-index:1000;background:rgba(2,6,23,.96);color:white;padding:18px 7%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+    .logo{font-size:28px;font-weight:900}.nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.nav a{color:white;text-decoration:none;font-weight:800;font-size:15px}.nav a:hover{color:#38bdf8}.nav .quote{background:#f97316;color:white;padding:11px 18px;border-radius:999px}
+    .hero{min-height:88vh;padding:100px 7%;display:grid;grid-template-columns:1.08fr .92fr;gap:55px;align-items:center;color:white;background:linear-gradient(rgba(2,6,23,.82),rgba(15,23,42,.9)),url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat}
+    .badge{display:inline-block;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.38);color:#38bdf8;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:900;letter-spacing:.8px;margin-bottom:22px}.hero h1{font-size:61px;line-height:1.04;margin-bottom:24px}.hero p{font-size:20px;color:#cbd5e1;max-width:760px;margin-bottom:32px}
+    .btn{display:inline-block;background:#38bdf8;color:#020617;text-decoration:none;padding:15px 28px;border-radius:999px;font-weight:900;margin:6px 8px 6px 0;transition:.25s}.btn:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(56,189,248,.28)}.btn.orange{background:#f97316;color:white}.btn.outline{background:transparent;color:white;border:1px solid #64748b}
+    .route-panel{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px);border-radius:30px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.35)}.route-panel h2{text-align:center;margin-bottom:20px}.route-card{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.12);padding:16px;border-radius:18px;color:white;text-decoration:none;margin-bottom:14px;transition:.25s}.route-card:hover{background:rgba(56,189,248,.2);transform:translateX(6px)}.route-icon{font-size:31px}.route-card strong{display:block}.route-card small{color:#cbd5e1}
+    section{padding:85px 7%}.section-title{text-align:center;font-size:43px;margin-bottom:12px}.section-subtitle{text-align:center;color:#64748b;font-size:19px;margin:0 auto 50px;max-width:820px}
+    .traffic-grid,.cards,.tech-grid,.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:26px}.traffic-card,.card,.tech-box,.contact-box{background:white;border-radius:24px;padding:30px;border:1px solid #e2e8f0;box-shadow:0 16px 45px rgba(15,23,42,.08);transition:.25s}.traffic-card:hover,.card:hover,.tech-box:hover,.contact-box:hover{transform:translateY(-8px);box-shadow:0 25px 65px rgba(15,23,42,.15)}.traffic-card .icon,.card .icon{font-size:42px;margin-bottom:17px}.traffic-card h3,.card h3,.tech-box h3{font-size:23px;margin-bottom:12px;color:#0f172a}.traffic-card p,.card p,.tech-box p{color:#475569;margin-bottom:18px}.traffic-card a{color:#0284c7;font-weight:900;text-decoration:none}
+    .services{background:#f1f5f9}.showcase{background:white}.image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}.image-card{position:relative;min-height:340px;border-radius:28px;overflow:hidden;box-shadow:0 18px 55px rgba(15,23,42,.16);isolation:isolate}.image-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:.55s}.image-card:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(2,6,23,.94),rgba(2,6,23,.08));z-index:-1}.image-card div{position:absolute;left:24px;right:24px;bottom:24px;color:white;transform:translateY(18px);transition:.35s}.image-card h3{font-size:24px;margin-bottom:8px}.image-card p{color:#cbd5e1;opacity:0;max-height:0;overflow:hidden;transition:.35s}.image-card:hover img{transform:scale(1.13)}.image-card:hover div{transform:none}.image-card:hover p{opacity:1;max-height:120px}
+    .why{background:linear-gradient(rgba(2,6,23,.92),rgba(2,6,23,.94)),url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=80') center/cover fixed;color:white}.why .section-title{color:white}.why .section-subtitle{color:#cbd5e1}.why .card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:white}.why .card h3{color:#38bdf8}.why .card p{color:#cbd5e1}
+    .tech{background:#f1f5f9}.tech-tags{display:flex;flex-wrap:wrap;gap:10px}.tech-tags span{background:#e0f2fe;padding:9px 14px;border-radius:999px;font-size:14px;font-weight:800}.cta{background:linear-gradient(135deg,#020617,#1e3a8a);color:white;text-align:center}.cta h2{font-size:42px;margin-bottom:14px}.cta p{color:#cbd5e1;font-size:19px;margin-bottom:28px}.contact-box{text-align:center}.contact-icon{font-size:38px;margin-bottom:14px}.contact-box a{color:#0f172a;text-decoration:none;font-weight:900}footer{background:#020617;color:#94a3b8;text-align:center;padding:28px}
+    @media(max-width:900px){header{flex-direction:column;gap:14px}.hero{grid-template-columns:1fr;text-align:center}.hero h1{font-size:41px}.splash-card h1{font-size:33px}.route-panel{text-align:left}.section-title{font-size:34px}}
+  </style>
+</head>
+<body>
+  <div id="splashScreen"><div class="splash-card"><div class="splash-logo">EZ</div><h1>Welcome to EZI<span>Marts</span></h1><p>AWS Websites • Cloud Solutions • Marketplace Platform</p><div class="loader"><span></span></div></div></div>
+  <header><div class="logo">EZI<span>Marts</span></div><nav class="nav"><a href="#home">Home</a><a href="#categories">Categories</a><a href="#services">Services</a><a href="#marketplace">Marketplace</a><a href="#checkout">Payments</a><a href="#technology">Technology</a><a href="#contact" class="quote">Free Consultation</a></nav></header>
+  <main id="home">
+    <section class="hero">
+      <div><span class="badge">AWS CLOUD CONSULTING • WEB DEVELOPMENT • E-COMMERCE</span><h1>Direct Customers to the Right <span>EZIMarts Service</span></h1><p>EZIMarts helps businesses build professional websites, cloud applications, e-commerce stores, and marketplace platforms using AWS serverless technology, Terraform, and modern DevOps practices.</p><a href="#categories" class="btn">Choose a Category</a><a href="#contact" class="btn orange">Request a Website</a><a href="#technology" class="btn outline">View AWS Stack</a></div>
+      <aside class="route-panel"><h2>Where should visitors go?</h2><a href="#services" class="route-card"><span class="route-icon">🌐</span><span><strong>Website Development</strong><small>Small business, corporate, and custom websites</small></span></a><a href="#technology" class="route-card"><span class="route-icon">☁️</span><span><strong>AWS Cloud Solutions</strong><small>Serverless apps, APIs, databases, DevOps</small></span></a><a href="#marketplace" class="route-card"><span class="route-icon">🛒</span><span><strong>Marketplace</strong><small>Buy, sell, trade, product categories</small></span></a><a href="#contact" class="route-card"><span class="route-icon">📞</span><span><strong>Get Free Consultation</strong><small>Talk about your website project</small></span></a></aside>
+    </section>
+    <section id="categories"><h2 class="section-title">Main Website Categories</h2><p class="section-subtitle">These cards help divert traffic into the correct section, so your homepage stays clean and visitors quickly find what they need.</p><div class="traffic-grid"><div class="traffic-card"><div class="icon">🌐</div><h3>Build My Website</h3><p>For customers who need a new business website, redesign, landing page, or corporate web presence.</p><a href="#services">Go to Website Services →</a></div><div class="traffic-card"><div class="icon">🛒</div><h3>Shop Marketplace</h3><p>For customers interested in future EZIMarts shopping, buy/sell/trade, and product listings.</p><a href="#marketplace">Go to Marketplace →</a></div><div class="traffic-card"><div class="icon">☁️</div><h3>AWS Cloud Solutions</h3><p>For clients needing AWS hosting, CloudFront, Lambda, DynamoDB, ECS Fargate, SNS, SES, and EventBridge.</p><a href="#technology">Go to AWS Stack →</a></div><div class="traffic-card"><div class="icon">💬</div><h3>Request Consultation</h3><p>For business owners who want pricing, project discussion, or help launching their website.</p><a href="#contact">Contact EZIMarts →</a></div></div></section>
+    <section id="services" class="services"><h2 class="section-title">Website & Cloud Services</h2><p class="section-subtitle">Professional website solutions for small businesses, startups, e-commerce brands, and enterprise customers.</p><div class="cards"><div class="card"><div class="icon">🏢</div><h3>Small Business Websites</h3><p>Clean, mobile-friendly websites for contractors, consultants, restaurants, stores, and local businesses.</p></div><div class="card"><div class="icon">🧾</div><h3>Corporate Websites</h3><p>Professional company pages with service sections, lead forms, branding, and contact flows.</p></div><div class="card"><div class="icon">🛍️</div><h3>E-Commerce Stores</h3><p>Product catalog, checkout, payment integration, order management, and customer registration.</p></div><div class="card"><div class="icon">📊</div><h3>Custom Web Apps</h3><p>Dashboards, customer portals, admin tools, registration forms, and database-connected systems.</p></div></div></section>
+    <section id="marketplace" class="showcase"><h2 class="section-title">Marketplace Categories</h2><p class="section-subtitle">This section keeps your shopping/trading idea separate from your web development business, while still showing future growth.</p><div class="image-grid"><div class="image-card"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Electronics category"><div><h3>Electronics</h3><p>Phones, computers, accessories, smart devices, and gadgets.</p></div></div><div class="image-card"><img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=80" alt="Fashion category"><div><h3>Fashion</h3><p>Clothing, shoes, accessories, and lifestyle products.</p></div></div><div class="image-card"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80" alt="Home and living category"><div><h3>Home & Living</h3><p>Home goods, furniture, kitchen, decor, and daily essentials.</p></div></div><div class="image-card"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="Buy sell trade category"><div><h3>Buy • Sell • Trade</h3><p>Future customer-to-customer listings and local trading features.</p></div></div></div></section>
+    <section class="why"><h2 class="section-title">Why Businesses Choose EZIMarts</h2><p class="section-subtitle">Enterprise-grade cloud ideas delivered with practical pricing for growing businesses.</p><div class="cards"><div class="card"><h3>Cost Optimized</h3><p>Serverless architecture helps reduce infrastructure cost by using managed AWS services.</p></div><div class="card"><h3>Secure by Design</h3><p>SSL, IAM, CloudFront, WAF-ready design, monitoring, and AWS security best practices.</p></div><div class="card"><h3>Scalable Growth</h3><p>Your platform can grow from a small business site to a larger cloud application.</p></div><div class="card"><h3>Terraform Driven</h3><p>Infrastructure as Code keeps deployments repeatable, clean, and professional.</p></div></div></section>
+    <section id="technology" class="tech"><h2 class="section-title">AWS Technology Stack</h2><p class="section-subtitle">Use this section to show customers that EZIMarts can build with modern AWS services.</p><div class="tech-grid"><div class="tech-box"><h3>Frontend & Hosting</h3><div class="tech-tags"><span>S3</span><span>CloudFront</span><span>Route 53</span><span>ACM SSL</span></div></div><div class="tech-box"><h3>Backend & APIs</h3><div class="tech-tags"><span>API Gateway</span><span>Lambda</span><span>DynamoDB</span><span>Step Functions</span></div></div><div class="tech-box"><h3>Containers & Events</h3><div class="tech-tags"><span>ECS Fargate</span><span>EKS</span><span>EventBridge</span><span>SQS</span></div></div><div class="tech-box"><h3>Communication</h3><div class="tech-tags"><span>SNS</span><span>SES</span><span>Notifications</span><span>Email</span></div></div><div class="tech-box"><h3>DevOps</h3><div class="tech-tags"><span>Terraform</span><span>GitHub Actions</span><span>CI/CD</span><span>CloudWatch</span></div></div><div class="tech-box"><h3>Security</h3><div class="tech-tags"><span>IAM</span><span>CloudTrail</span><span>WAF</span><span>Monitoring</span></div></div></div></section>
+    
+    <section id="checkout" class="services">
+      <h2 class="section-title">Payments & Orders</h2>
+      <p class="section-subtitle">Start with secure hosted checkout. EZIMarts records only safe order and payment status in DynamoDB. Do not store credit card numbers on your website.</p>
+      <div class="traffic-grid">
+        <div class="traffic-card">
+          <div class="icon">💳</div>
+          <h3>Website Starter Package</h3>
+          <p>Sample checkout flow for a website consultation or starter package.</p>
+          <h2>$49.99</h2>
+          <input id="checkoutEmail" type="email" placeholder="Customer email" style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin:12px 0;">
+          <button class="btn" onclick="startStripeCheckout()" style="border:none;cursor:pointer;">Pay with Stripe</button>
+          <div id="paypal-button-container" style="margin-top:15px;"></div>
+          <p id="checkoutResult" style="margin-top:12px;color:#475569;"></p>
+        </div>
+        <div class="traffic-card">
+          <div class="icon">📦</div>
+          <h3>Order Details</h3>
+          <p>Orders are saved to the <strong>orders</strong> DynamoDB table with orderId, email, items, amount, currency, and status.</p>
+        </div>
+        <div class="traffic-card">
+          <div class="icon">🔐</div>
+          <h3>Payment Records</h3>
+          <p>Payments are saved to the <strong>payments</strong> DynamoDB table with paymentId, provider, provider reference, amount, and status.</p>
+        </div>
+      </div>
+    </section>
+<section id="contact" class="cta"><h2>Ready to Launch Your Website?</h2><p>Let EZIMarts build your AWS-powered website, e-commerce platform, or cloud application.</p><a href="mailto:ezimarts.info@gmail.com" class="btn">Request Free Consultation</a><a href="tel:+16466374619" class="btn orange">Call Now</a></section>
+    <section class="business-contact"><h2 class="section-title">Contact EZIMarts</h2><p class="section-subtitle">We would love to discuss your next project.</p><div class="contact-grid"><div class="contact-box"><div class="contact-icon">📞</div><h3>Call Us</h3><a href="tel:+16466374619">+1 (646) 637-4619</a></div><div class="contact-box"><div class="contact-icon">✉️</div><h3>Email</h3><a href="mailto:ezimarts.info@gmail.com">ezimarts.info@gmail.com</a></div><div class="contact-box"><div class="contact-icon">📍</div><h3>Location</h3><p>Townsend, Delaware, USA</p></div><div class="contact-box"><div class="contact-icon">🕒</div><h3>Business Hours</h3><p>Monday – Friday<br>9:00 AM – 6:00 PM EST</p></div></div></section>
+  </main>
+  <footer><p>© 2026 EZIMarts LLC. All rights reserved.</p><p>Built with AWS Serverless Technology</p></footer>
+  <script>window.addEventListener('load',()=>setTimeout(()=>document.getElementById('splashScreen').classList.add('hide'),1700));</script>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=REPLACE_WITH_PAYPAL_CLIENT_ID&currency=USD"></script>
+  <script>
+    const API_BASE_URL = "REPLACE_WITH_TERRAFORM_API_INVOKE_URL";
+    const STRIPE_PUBLISHABLE_KEY = "pk_test_REPLACE_ME";
+
+    async function startStripeCheckout(){
+      const email = document.getElementById('checkoutEmail').value || 'guest@ezimarts.com';
+      const result = document.getElementById('checkoutResult');
+      result.textContent = 'Starting Stripe checkout...';
+      try{
+        const response = await fetch(`${API_BASE_URL}/checkout`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            provider:'stripe',
+            email,
+            amount:49.99,
+            currency:'USD',
+            items:[{name:'EZIMarts Website Starter Package', qty:1}]
+          })
+        });
+        const data = await response.json();
+        result.textContent = data.message || 'Checkout created.';
+        // Production: redirect to real Stripe Checkout Session URL returned by Lambda.
+        // window.location.href = data.checkoutUrl;
+      }catch(error){
+        result.textContent = 'Checkout error: ' + error.message;
+      }
+    }
+
+    if(window.paypal){
+      paypal.Buttons({
+        createOrder: function(data, actions){
+          return actions.order.create({
+            purchase_units:[{amount:{value:'49.99'}}]
+          });
+        },
+        onApprove: async function(data, actions){
+          const details = await actions.order.capture();
+          const email = document.getElementById('checkoutEmail').value || details?.payer?.email_address || 'guest@ezimarts.com';
+          document.getElementById('checkoutResult').textContent = 'PayPal payment approved. Saving payment record...';
+          await fetch(`${API_BASE_URL}/payments`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+              provider:'paypal',
+              providerReference:data.orderID,
+              email,
+              amount:49.99,
+              currency:'USD',
+              status:'paid'
+            })
+          });
+          document.getElementById('checkoutResult').textContent = 'PayPal payment saved successfully.';
+        }
+      }).render('#paypal-button-container');
+    }
+  </script>
+
+</body>
+</html>

@@ -125,3 +125,7 @@ I recommend building it in this order:
 7. Admin inquiry page
 8. SES email notification
 9. Terraform automation
+
+DNS Configuration: 
+"Domain name","CNAME name","Type","CNAME value"
+"eziwebtech.com","_3648bd2b2b4bd8174a62a86a12b283ac.eziwebtech.com.","CNAME","_57799f69050be91ccfdb67c60a81169a.jkddzztszm.acm-validations.aws."
