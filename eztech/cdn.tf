@@ -1,15 +1,10 @@
-variable "website_bucket_name" {
-  description = "Name of the S3 bucket used as the CloudFront origin"
-  type        = string
-}
-
-variable "hosted_zone_id" {
-  description = "Route 53 hosted zone ID for eziwebtech.com"
-  type        = string
-}
-
 resource "aws_s3_bucket" "website" {
-  bucket = var.website_bucket_name
+  bucket        = var.website_bucket_name
+  force_destroy = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "website" {
@@ -38,8 +33,10 @@ resource "aws_s3_object" "index" {
 
 resource "aws_cloudfront_distribution" "cdn" {
   enabled             = true
-  aliases             = ["eziwebtech.com"]
+  is_ipv6_enabled     = true
+  aliases             = var.domain_name == "" ? [] : [var.domain_name, "www.${var.domain_name}"]
   default_root_object = "index.html"
+  price_class         = "PriceClass_100"
 
   origin {
     domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
@@ -51,8 +48,9 @@ resource "aws_cloudfront_distribution" "cdn" {
     target_origin_id       = "site-origin"
     viewer_protocol_policy = "redirect-to-https"
 
-    allowed_methods = ["GET", "HEAD"]
+    allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD"]
+    compress        = true
 
     forwarded_values {
       query_string = false
@@ -63,6 +61,18 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
+  custom_error_response {
+    error_code         = 403
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
+  custom_error_response {
+    error_code         = 404
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -70,11 +80,13 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = var.certificate_arn
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "TLSv1.2_2021"
-    cloudfront_default_certificate = false
+    cloudfront_default_certificate = var.domain_name == "" ? true : false
+    acm_certificate_arn            = var.domain_name == "" ? null : (var.hosted_zone_id != "" ? aws_acm_certificate_validation.website[0].certificate_arn : var.certificate_arn)
+    ssl_support_method             = var.domain_name == "" ? null : "sni-only"
+    minimum_protocol_version       = var.domain_name == "" ? "TLSv1" : "TLSv1.2_2021"
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_s3_bucket_policy" "website" {
@@ -98,8 +110,9 @@ resource "aws_s3_bucket_policy" "website" {
 }
 
 resource "aws_route53_record" "cdn" {
+  count   = var.domain_name == "" || var.hosted_zone_id == "" ? 0 : 1
   zone_id = var.hosted_zone_id
-  name    = "eziwebtech.com"
+  name    = var.domain_name
   type    = "A"
 
   alias {
@@ -107,4 +120,21 @@ resource "aws_route53_record" "cdn" {
     zone_id                = aws_cloudfront_distribution.cdn.hosted_zone_id
     evaluate_target_health = false
   }
+
+  allow_overwrite = true
+}
+
+resource "aws_route53_record" "cdn_www" {
+  count   = var.domain_name == "" || var.hosted_zone_id == "" ? 0 : 1
+  zone_id = var.hosted_zone_id
+  name    = "www.${var.domain_name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.cdn.domain_name
+    zone_id                = aws_cloudfront_distribution.cdn.hosted_zone_id
+    evaluate_target_health = false
+  }
+
+  allow_overwrite = true
 }

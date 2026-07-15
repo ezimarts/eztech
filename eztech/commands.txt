@@ -1,4 +1,0 @@
-# cdn clear catch for eztech front end
-aws cloudfront create-invalidation \
-  --distribution-id E3LZFQXATFLE84 \
-  --paths "/*"

@@ -8,6 +8,9 @@
   <meta name="description"
     content="EZI Web Tech designs high-converting websites, memorable digital brands, and secure AWS-powered web experiences for growing businesses.">
   <title>EZI Web Tech | Professional Website Design & Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #07111f;
@@ -25,6 +28,9 @@
       --radius: 22px;
       --shadow: 0 24px 70px rgba(2, 12, 27, .16);
       --max: 1180px;
+      --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
     * {
@@ -38,11 +44,13 @@
     }
 
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font-body);
       background: var(--paper);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.62;
       overflow-x: hidden;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -59,6 +67,18 @@
     .wrap {
       width: min(calc(100% - 40px), var(--max));
       margin-inline: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .eyebrow {
@@ -97,8 +117,9 @@
     h1,
     h2,
     h3 {
-      line-height: 1.12;
-      letter-spacing: -.035em;
+      font-family: var(--font-display);
+      line-height: 1.08;
+      letter-spacing: -.02em;
     }
 
     h2 {
@@ -110,6 +131,7 @@
       margin-top: 16px;
       color: var(--subtle);
       font-size: 18px;
+      line-height: 1.7;
     }
 
     section {
@@ -139,39 +161,63 @@
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
       color: white;
       text-decoration: none;
+      font-family: var(--font-display);
       font-weight: 900;
-      letter-spacing: -.03em;
+      letter-spacing: -.02em;
       font-size: 21px;
     }
 
-    .brand-mark {
+    .brand-logo {
       position: relative;
-      display: grid;
+      display: inline-grid;
       place-items: center;
-      width: 35px;
-      height: 35px;
-      border: 1px solid rgba(66, 214, 255, .6);
-      border-radius: 11px;
-      background: rgba(66, 214, 255, .1);
-      color: var(--cyan);
-      font-size: 13px;
-      box-shadow: inset 0 0 16px rgba(66, 214, 255, .08);
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(66, 214, 255, .85);
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(66, 214, 255, .18), rgba(79, 124, 255, .08)),
+        #07111f;
+      color: #6ee7c8 !important;
+      font: 900 14px var(--font-mono);
+      letter-spacing: -.08em;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .22));
     }
 
-    .brand-mark::after {
+    .brand-logo::before {
+      content: "EWT";
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-logo::after {
       content: "";
       position: absolute;
       inset: 7px;
-      border: 1px solid currentColor;
-      border-radius: 5px;
+      border: 1px solid rgba(110, 231, 200, .75);
+      border-radius: 8px;
       transform: rotate(45deg);
+    }
+
+    .brand-name {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .brand span {
       color: var(--cyan);
+    }
+
+    footer .brand-logo {
+      width: 52px;
+      height: 52px;
     }
 
     .nav-links {
@@ -184,12 +230,106 @@
       color: #cfdaea;
       text-decoration: none;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: -.01em;
       transition: .2s;
     }
 
     .nav-links a:hover {
       color: white;
+    }
+
+    .site-search {
+      position: relative;
+      width: min(260px, 30vw);
+    }
+
+    .site-search input {
+      width: 100%;
+      height: 40px;
+      padding: 0 38px 0 14px;
+      border: 1px solid rgba(66, 214, 255, .32);
+      border-radius: 12px;
+      outline: none;
+      background: rgba(255, 255, 255, .07);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .site-search input::placeholder {
+      color: #8fa0b7;
+    }
+
+    .site-search input:focus {
+      border-color: rgba(66, 214, 255, .75);
+      background: rgba(255, 255, 255, .11);
+      box-shadow: 0 0 0 3px rgba(66, 214, 255, .13);
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      color: var(--cyan);
+      font-size: 15px;
+      pointer-events: none;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      z-index: 80;
+      display: none;
+      width: min(360px, calc(100vw - 40px));
+      max-height: 360px;
+      overflow: auto;
+      padding: 8px;
+      border: 1px solid rgba(148, 163, 184, .22);
+      border-radius: 14px;
+      background: #081525;
+      box-shadow: 0 24px 70px rgba(2, 12, 27, .38);
+    }
+
+    .search-results.open {
+      display: grid;
+      gap: 5px;
+    }
+
+    .search-result {
+      display: grid;
+      gap: 2px;
+      padding: 10px 11px;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .search-result:hover,
+    .search-result:focus-visible {
+      background: rgba(66, 214, 255, .1);
+      outline: none;
+    }
+
+    .search-result strong {
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .search-result span {
+      color: #91a4bd;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .search-empty {
+      padding: 12px;
+      color: #91a4bd;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .nav-cta {
@@ -287,6 +427,8 @@
     .hero h1 {
       max-width: 730px;
       font-size: clamp(48px, 7vw, 78px);
+      font-weight: 800;
+      letter-spacing: -.035em;
     }
 
     .gradient-text {
@@ -301,6 +443,7 @@
       margin: 25px 0 34px;
       color: var(--muted);
       font-size: 19px;
+      line-height: 1.75;
     }
 
     .actions {
@@ -319,6 +462,7 @@
       border: 1px solid transparent;
       border-radius: 12px;
       font-weight: 800;
+      letter-spacing: -.01em;
       text-decoration: none;
       cursor: pointer;
       transition: transform .2s, box-shadow .2s, background .2s;
@@ -381,7 +525,7 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--line);
       color: #7f91a9;
-      font: 600 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+      font: 600 11px var(--font-mono);
     }
 
     .dots {
@@ -417,7 +561,7 @@
       justify-content: space-between;
       margin-bottom: 20px;
       color: #7f91a9;
-      font: 700 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+      font: 700 11px var(--font-mono);
       text-transform: uppercase;
       letter-spacing: .08em;
     }
@@ -452,7 +596,7 @@
       border-radius: 9px;
       background: rgba(66, 214, 255, .1);
       color: var(--cyan);
-      font: 800 12px ui-monospace, monospace;
+      font: 800 12px var(--font-mono);
     }
 
     .node strong {
@@ -508,6 +652,7 @@
     .proof-item strong {
       display: block;
       color: var(--ink);
+      font-family: var(--font-display);
       font-size: 25px;
       letter-spacing: -.04em;
     }
@@ -594,12 +739,13 @@
       border-radius: 13px;
       background: #edf7ff;
       color: #087ca2;
-      font: 900 13px ui-monospace, monospace;
+      font: 900 13px var(--font-mono);
     }
 
     .service h3 {
       margin-bottom: 12px;
       font-size: 22px;
+      letter-spacing: -.02em;
       color: var(--ink);
     }
 
@@ -763,7 +909,7 @@
       border-radius: 50%;
       background: var(--ink);
       color: var(--cyan);
-      font: 800 12px ui-monospace, monospace;
+      font: 800 12px var(--font-mono);
     }
 
     .step h3 {
@@ -777,41 +923,135 @@
     }
 
     .stack {
+      background:
+        linear-gradient(180deg, #ffffff 0%, #eef7ff 100%);
+    }
+
+    .stack .section-head {
+      max-width: 820px;
+    }
+
+    .stack-proof {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .stack-proof span {
+      padding: 8px 12px;
+      border: 1px solid rgba(79, 124, 255, .18);
+      border-radius: 999px;
       background: white;
+      color: #245bd7;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 10px 26px rgba(7, 17, 31, .07);
     }
 
     .stack-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      border: 1px solid #dce6f0;
-      border-radius: 18px;
-      overflow: hidden;
+      gap: 14px;
+    }
+
+    .stack-group {
+      margin-top: 32px;
+    }
+
+    .stack-group:first-of-type {
+      margin-top: 0;
+    }
+
+    .stack-group-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      color: var(--ink);
+      font-size: 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .stack-group-title span {
+      color: var(--subtle);
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .stack-item {
-      min-height: 112px;
-      padding: 20px 12px;
+      position: relative;
+      min-height: 128px;
+      padding: 24px 14px 20px;
       display: grid;
       place-items: center;
       align-content: center;
       gap: 8px;
       text-align: center;
-      border-right: 1px solid #e3ebf3;
-      border-bottom: 1px solid #e3ebf3;
-      transition: .2s;
+      border: 1px solid #dce6f0;
+      border-radius: 16px;
+      background: white;
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 14px 34px rgba(7, 17, 31, .07);
+      overflow: hidden;
+      transition: transform .22s, border-color .22s, box-shadow .22s, background .22s;
     }
 
-    .stack-item:hover {
-      background: #f0f8ff;
+    .stack-item::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+    }
+
+    .stack-item::after {
+      content: attr(data-doc-label);
+      color: #137b9b;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .stack-item:hover,
+    .stack-item:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgba(79, 124, 255, .45);
+      background: #f8fcff;
       color: #175ed0;
+      box-shadow: 0 22px 50px rgba(7, 17, 31, .13);
+      outline: none;
+    }
+
+    .stack-item:focus-visible {
+      box-shadow: inset 0 0 0 3px rgba(79, 124, 255, .45);
     }
 
     .stack-item b {
-      font: 900 13px ui-monospace, monospace;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.02em;
     }
 
     .stack-item small {
       color: var(--subtle);
+      font-weight: 800;
+    }
+
+    .stack-item:nth-child(3n)::before {
+      background: linear-gradient(90deg, #6ee7c8, #42d6ff);
+    }
+
+    .stack-item:nth-child(3n + 2)::before {
+      background: linear-gradient(90deg, #4f7cff, #9baeff);
     }
 
     .faq-grid {
@@ -1087,6 +1327,16 @@
         display: flex;
       }
 
+      .site-search {
+        width: 100%;
+      }
+
+      .search-results {
+        left: 0;
+        right: 0;
+        width: 100%;
+      }
+
       .nav-cta {
         text-align: center;
       }
@@ -1167,12 +1417,22 @@
 <body>
   <header class="nav-shell" id="nav">
     <div class="navbar wrap">
-      <a class="brand" href="#top" aria-label="EZI Web Tech home"><span class="brand-mark">E</span> EZI <span>Web
-          Tech</span></a>
+      <a class="brand" href="#top" aria-label="EZI Web Tech home">
+        <span class="brand-logo" aria-hidden="true"></span>
+        <span class="brand-name">EZI <span>Web Tech</span></span>
+      </a>
       <button class="menu" id="menu" aria-label="Open navigation" aria-expanded="false">☰</button>
       <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
         <a href="#services">Services</a><a href="#outcomes">Why us</a><a href="#process">Process</a><a
-          href="#technology">Technology</a><a class="nav-cta" href="#contact">Start a project</a>
+          href="#technology">Technology</a>
+        <form class="site-search" id="siteSearch" role="search">
+          <label class="sr-only" for="siteSearchInput">Search EZI Web Tech</label>
+          <input id="siteSearchInput" type="search" autocomplete="off" placeholder="Search EZI Web Tech"
+            aria-label="Search EZI Web Tech" aria-controls="searchResults">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+        </form>
+        <a class="nav-cta" href="#contact">Start a project</a>
       </nav>
     </div>
   </header>
@@ -1352,27 +1612,52 @@
     <section class="stack" id="technology">
       <div class="wrap">
         <div class="section-head center reveal"><span class="eyebrow">Modern foundations</span>
-          <h2>Creative design backed by serious technology.</h2>
-          <p>We choose dependable tools for speed, security, maintainability, and a smooth customer experience.</p>
+          <h2>Elegant web experiences backed by enterprise-grade cloud technology.</h2>
+          <p>We use trusted AWS and Microsoft Azure services to create fast, secure, scalable, and maintainable customer experiences.</p>
+          <div class="stack-proof" aria-label="Technology strengths">
+            <span>AWS & Azure-ready delivery</span>
+            <span>Security-first architecture</span>
+            <span>Built to scale</span>
+          </div>
         </div>
-        <div class="stack-grid reveal">
-          <div class="stack-item"><b>CloudFront</b><small>Edge delivery</small></div>
-          <div class="stack-item"><b>Lambda</b><small>Serverless compute</small></div>
-          <div class="stack-item"><b>API Gateway</b><small>Secure APIs</small></div>
-          <div class="stack-item"><b>DynamoDB</b><small>Managed data</small></div>
-          <div class="stack-item"><b>Amazon S3</b><small>Object storage</small></div>
-          <div class="stack-item"><b>Route 53</b><small>Global DNS</small></div>
-          <div class="stack-item"><b>Terraform</b><small>Infrastructure code</small></div>
-          <div class="stack-item"><b>GitHub Actions</b><small>CI/CD</small></div>
-          <div class="stack-item"><b>EventBridge</b><small>Event routing</small></div>
-          <div class="stack-item"><b>CloudWatch</b><small>Observability</small></div>
-          <div class="stack-item"><b>AWS WAF</b><small>Edge security</small></div>
-          <div class="stack-item"><b>ECS Fargate</b><small>Containers</small></div>
+        <div class="stack-group reveal">
+          <h3 class="stack-group-title">AWS services <span>Cloud delivery, serverless, data, and security</span></h3>
+          <div class="stack-grid">
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html" target="_blank" rel="noopener" aria-label="Read the AWS CloudFront documentation"><b>CloudFront</b><small>Edge delivery</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html" target="_blank" rel="noopener" aria-label="Read the AWS Lambda documentation"><b>Lambda</b><small>Serverless compute</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" rel="noopener" aria-label="Read the Amazon API Gateway documentation"><b>API Gateway</b><small>Secure APIs</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" target="_blank" rel="noopener" aria-label="Read the Amazon DynamoDB documentation"><b>DynamoDB</b><small>Managed data</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" target="_blank" rel="noopener" aria-label="Read the Amazon S3 documentation"><b>Amazon S3</b><small>Object storage</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html" target="_blank" rel="noopener" aria-label="Read the Amazon Route 53 documentation"><b>Route 53</b><small>Global DNS</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/prescriptive-guidance/latest/terraform-aws-provider-best-practices/introduction.html" target="_blank" rel="noopener" aria-label="Read AWS guidance for the Terraform AWS provider"><b>Terraform</b><small>Infrastructure code</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html" target="_blank" rel="noopener" aria-label="Read the AWS IAM OIDC documentation for GitHub Actions deployments"><b>GitHub Actions</b><small>CI/CD</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html" target="_blank" rel="noopener" aria-label="Read the Amazon EventBridge documentation"><b>EventBridge</b><small>Event routing</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html" target="_blank" rel="noopener" aria-label="Read the Amazon CloudWatch documentation"><b>CloudWatch</b><small>Observability</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html" target="_blank" rel="noopener" aria-label="Read the AWS WAF documentation"><b>AWS WAF</b><small>Edge security</small></a>
+            <a class="stack-item" data-doc-label="AWS docs ->" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html" target="_blank" rel="noopener" aria-label="Read the AWS Fargate for Amazon ECS documentation"><b>ECS Fargate</b><small>Containers</small></a>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <h3 class="stack-group-title">Microsoft Azure services <span>Enterprise web apps, automation, data, and protection</span></h3>
+          <div class="stack-grid">
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/frontdoor/front-door-overview" target="_blank" rel="noopener" aria-label="Read the Azure Front Door documentation"><b>Front Door</b><small>Edge delivery</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/azure-functions/functions-overview" target="_blank" rel="noopener" aria-label="Read the Azure Functions documentation"><b>Functions</b><small>Serverless compute</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/api-management/api-management-key-concepts" target="_blank" rel="noopener" aria-label="Read the Azure API Management documentation"><b>API Management</b><small>Secure APIs</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/cosmos-db/introduction" target="_blank" rel="noopener" aria-label="Read the Azure Cosmos DB documentation"><b>Cosmos DB</b><small>Managed data</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction" target="_blank" rel="noopener" aria-label="Read the Azure Blob Storage documentation"><b>Blob Storage</b><small>Object storage</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/dns/dns-overview" target="_blank" rel="noopener" aria-label="Read the Azure DNS documentation"><b>Azure DNS</b><small>Global DNS</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview" target="_blank" rel="noopener" aria-label="Read the Azure Bicep documentation"><b>Bicep</b><small>Infrastructure code</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/developer/github/github-actions" target="_blank" rel="noopener" aria-label="Read the GitHub Actions for Azure documentation"><b>GitHub Actions</b><small>CI/CD</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/event-grid/overview" target="_blank" rel="noopener" aria-label="Read the Azure Event Grid documentation"><b>Event Grid</b><small>Event routing</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/azure-monitor/overview" target="_blank" rel="noopener" aria-label="Read the Azure Monitor documentation"><b>Azure Monitor</b><small>Observability</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/web-application-firewall/overview" target="_blank" rel="noopener" aria-label="Read the Azure Web Application Firewall documentation"><b>Azure WAF</b><small>Edge security</small></a>
+            <a class="stack-item" data-doc-label="Azure docs ->" href="https://learn.microsoft.com/azure/container-apps/overview" target="_blank" rel="noopener" aria-label="Read the Azure Container Apps documentation"><b>Container Apps</b><small>Containers</small></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="faq-grid wrap">
         <div class="section-head reveal"><span class="eyebrow">Common questions</span>
           <h2>Clarity before commitment.</h2>
@@ -1434,8 +1719,10 @@
   </main>
 
   <footer>
-    <div class="footer-row wrap"><a class="brand" href="#top"><span class="brand-mark">E</span> EZI <span>Web
-          Tech</span></a>
+    <div class="footer-row wrap"><a class="brand" href="#top">
+        <span class="brand-logo" aria-hidden="true"></span>
+        <span class="brand-name">EZI <span>Web Tech</span></span>
+      </a>
       <p>© 2026 EZI Web Tech. Professional website design & development.</p>
       <div class="footer-links"><a href="mailto:ezimarts.info@gmail.com">Email</a><a href="tel:+16466374619">Call</a>
       </div>
@@ -1449,6 +1736,65 @@
     addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
     menu.addEventListener('click', () => { const open = links.classList.toggle('open'); menu.setAttribute('aria-expanded', open); menu.textContent = open ? '×' : '☰'; });
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.textContent = '☰'; }));
+
+    const searchForm = document.querySelector('#siteSearch');
+    const searchInput = document.querySelector('#siteSearchInput');
+    const searchResults = document.querySelector('#searchResults');
+    const searchIndex = [
+      { title: 'Business websites', desc: 'Responsive websites built around your brand and conversion goals.', href: '#services', terms: 'website design business responsive brand conversion' },
+      { title: 'UI/UX & brand design', desc: 'Information architecture, polished interfaces, and visual trust.', href: '#services', terms: 'ux ui brand design interface customer journey' },
+      { title: 'E-commerce websites', desc: 'Storefronts, secure payments, product management, and orders.', href: '#services', terms: 'ecommerce store shop payments products orders' },
+      { title: 'Custom web applications', desc: 'Portals, dashboards, forms, bookings, and business workflows.', href: '#services', terms: 'web app portal dashboard form booking workflow' },
+      { title: 'SEO & performance', desc: 'Technical SEO, accessibility, speed, and analytics.', href: '#services', terms: 'seo performance speed accessibility analytics' },
+      { title: 'Website care plans', desc: 'Updates, monitoring, backups, support, and improvements.', href: '#services', terms: 'care maintenance updates monitoring backups support' },
+      { title: 'Why EZI Web Tech', desc: 'Customer-first UX, speed, SEO, accessibility, and ownership.', href: '#outcomes', terms: 'why results trust outcomes customer ux speed ownership' },
+      { title: 'Design process', desc: 'Discover, design, build, launch, and grow.', href: '#process', terms: 'process discover design build launch grow' },
+      { title: 'AWS services', desc: 'CloudFront, Lambda, API Gateway, DynamoDB, S3, Route 53, WAF, and more.', href: '#technology', terms: 'aws cloudfront lambda api gateway dynamodb s3 route 53 terraform eventbridge cloudwatch waf fargate' },
+      { title: 'Microsoft Azure services', desc: 'Front Door, Functions, API Management, Cosmos DB, Blob Storage, Azure DNS, and more.', href: '#technology', terms: 'azure microsoft front door functions api management cosmos db blob storage dns bicep event grid monitor waf container apps' },
+      { title: 'Free consultation', desc: 'Start a project with EZI Web Tech.', href: '#contact', terms: 'contact consultation project email phone quote' },
+      { title: 'Common questions', desc: 'Website types, redesigns, mobile support, and how projects begin.', href: '#faq', terms: 'faq questions redesign mobile begin website types' }
+    ];
+
+    const renderSearchResults = query => {
+      const term = query.trim().toLowerCase();
+      if (!term) {
+        searchResults.classList.remove('open');
+        searchResults.innerHTML = '';
+        return;
+      }
+
+      const matches = searchIndex.filter(item => `${item.title} ${item.desc} ${item.terms}`.toLowerCase().includes(term)).slice(0, 6);
+      searchResults.innerHTML = matches.length
+        ? matches.map(item => `<a class="search-result" href="${item.href}" role="option"><strong>${item.title}</strong><span>${item.desc}</span></a>`).join('')
+        : '<div class="search-empty">No matches yet. Try services, Azure, SEO, hosting, or contact.</div>';
+      searchResults.classList.add('open');
+    };
+
+    searchInput.addEventListener('input', event => renderSearchResults(event.currentTarget.value));
+    searchInput.addEventListener('focus', event => renderSearchResults(event.currentTarget.value));
+    searchForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const firstResult = searchResults.querySelector('.search-result');
+      if (firstResult) firstResult.click();
+    });
+    searchResults.addEventListener('click', event => {
+      const result = event.target.closest('.search-result');
+      if (!result) return;
+      searchResults.classList.remove('open');
+      searchInput.value = '';
+      links.classList.remove('open');
+      menu.setAttribute('aria-expanded', 'false');
+      menu.textContent = '☰';
+    });
+    document.addEventListener('click', event => {
+      if (!searchForm.contains(event.target)) searchResults.classList.remove('open');
+    });
+    searchInput.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        searchResults.classList.remove('open');
+        searchInput.blur();
+      }
+    });
 
     const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }), { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));

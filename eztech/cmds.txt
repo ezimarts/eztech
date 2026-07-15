@@ -1,0 +1,13 @@
+invalidation catch
+aws cloudfront create-invalidation --distribution-id "E3LZFQXATFLE84", --paths "/*"
+
+# to filter for a pattern or some specific item
+Get-ChildItem -Recurse -Include *.tf,*.tfvars,*.auto.tfvars | Select-String -Pattern 'cloudfront_domain_name|eziwebtech.com'
+
+# Command to list hosted zones from route53
+aws route53 list-resource-record-sets --hosted-zone-id Z04905802OV5X7UOIN7SJ
+
+# cdn clear catch for eztech front end
+aws cloudfront create-invalidation \
+  --distribution-id E3LZFQXATFLE84 \
+  --paths "/*"-

@@ -13,10 +13,14 @@ except Exception:
 
 
 dynamodb = boto3.resource("dynamodb")
+s3 = boto3.client("s3")
 USERS_TABLE = dynamodb.Table(os.environ["USERS_TABLE"])
 ORDERS_TABLE = dynamodb.Table(os.environ["ORDERS_TABLE"])
 PAYMENTS_TABLE = dynamodb.Table(os.environ["PAYMENTS_TABLE"])
 PRODUCTS_TABLE = dynamodb.Table(os.environ["PRODUCTS_TABLE"])
+WEBSITE_BUCKET = os.environ.get("WEBSITE_BUCKET", "")
+SITE_DOMAIN = os.environ.get("SITE_DOMAIN", "eziwebtech.com")
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "https://eziwebtech.com")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 
 
@@ -29,9 +33,9 @@ def response(status_code, body):
         "statusCode": status_code,
         "headers": {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
             "Access-Control-Allow-Headers": "Content-Type,Authorization",
-            "Access-Control-Allow-Methods": "OPTIONS,POST",
+            "Access-Control-Allow-Methods": "OPTIONS,GET,POST",
         },
         "body": json.dumps(body, default=str),
     }
@@ -150,6 +154,28 @@ def create_checkout(body):
     })
 
 
+def site_status():
+    status = {
+        "domain": SITE_DOMAIN,
+        "bucket": WEBSITE_BUCKET,
+        "tables": {
+            "users": USERS_TABLE.name,
+            "orders": ORDERS_TABLE.name,
+            "payments": PAYMENTS_TABLE.name,
+            "products": PRODUCTS_TABLE.name,
+        },
+    }
+
+    if WEBSITE_BUCKET:
+        try:
+            s3.head_bucket(Bucket=WEBSITE_BUCKET)
+            status["s3"] = "connected"
+        except Exception:
+            status["s3"] = "not_verified"
+
+    return response(200, status)
+
+
 def lambda_handler(event, context):
     try:
         method = event.get("httpMethod", "")
@@ -157,6 +183,9 @@ def lambda_handler(event, context):
             return response(200, {"message": "CORS OK"})
 
         path = event.get("path", "")
+        if method == "GET" and path.endswith("/status"):
+            return site_status()
+
         body = parse_body(event)
 
         if path.endswith("/users"):

@@ -19,13 +19,17 @@ resource "aws_lambda_function" "api" {
       ORDERS_TABLE      = aws_dynamodb_table.orders.name
       PAYMENTS_TABLE    = aws_dynamodb_table.payments.name
       PRODUCTS_TABLE    = aws_dynamodb_table.products.name
+      WEBSITE_BUCKET    = aws_s3_bucket.website.bucket
+      SITE_DOMAIN       = var.domain_name
+      ALLOWED_ORIGIN    = var.allowed_origin
       STRIPE_SECRET_KEY = var.stripe_secret_key
     }
   }
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_basic,
-    aws_iam_role_policy_attachment.lambda_dynamodb_attach
+    aws_iam_role_policy_attachment.lambda_dynamodb_attach,
+    aws_iam_role_policy_attachment.lambda_s3_attach
   ]
 
   tags = local.common_tags
