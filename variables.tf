@@ -72,3 +72,27 @@ variable "allowed_origin" {
   type        = string
   default     = "https://eziwebtech.com"
 }
+
+variable "business_email" {
+  description = "Address that receives new-request notifications."
+  type        = string
+  default     = "ezimarts.info@gmail.com"
+}
+
+variable "sender_email" {
+  description = "SES-verified From address."
+  type        = string
+  default     = "zahidullah67@gmail.com"
+}
+
+variable "resource_prefix" {
+  description = "Prefix used for AWS resource names."
+  type        = string
+  default     = "ezimarts-request"
+}
+
+variable "environment" {
+  description = "Deployment environment name"
+  type        = string
+  default     = "production"
+}

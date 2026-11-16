@@ -34,7 +34,8 @@ resource "aws_iam_policy" "lambda_dynamodb" {
         aws_dynamodb_table.users.arn,
         aws_dynamodb_table.orders.arn,
         aws_dynamodb_table.payments.arn,
-        aws_dynamodb_table.products.arn
+        aws_dynamodb_table.products.arn,
+        aws_dynamodb_table.counters.arn
       ]
     }]
   })
@@ -56,7 +57,10 @@ resource "aws_iam_policy" "lambda_s3" {
         Action = [
           "s3:ListBucket"
         ]
-        Resource = aws_s3_bucket.website.arn
+        Resource = [
+          aws_s3_bucket.website.arn,
+          aws_s3_bucket.orders_archive.arn
+        ]
       },
       {
         Effect = "Allow"
@@ -64,7 +68,10 @@ resource "aws_iam_policy" "lambda_s3" {
           "s3:GetObject",
           "s3:PutObject"
         ]
-        Resource = "${aws_s3_bucket.website.arn}/*"
+        Resource = [
+          "${aws_s3_bucket.website.arn}/*",
+          "${aws_s3_bucket.orders_archive.arn}/*"
+        ]
       }
     ]
   })

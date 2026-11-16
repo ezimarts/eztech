@@ -17,7 +17,7 @@ resource "aws_api_gateway_resource" "route" {
 }
 
 resource "aws_api_gateway_method" "route" {
-  for_each      = local.api_routes
+  for_each      = setsubtract(local.api_routes, ["support"])
   rest_api_id   = aws_api_gateway_rest_api.api.id
   resource_id   = aws_api_gateway_resource.route[each.key].id
   http_method   = "ANY"
@@ -25,7 +25,7 @@ resource "aws_api_gateway_method" "route" {
 }
 
 resource "aws_api_gateway_integration" "route" {
-  for_each                = local.api_routes
+  for_each                = aws_api_gateway_method.route
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.route[each.key].id
   http_method             = aws_api_gateway_method.route[each.key].http_method
@@ -39,13 +39,18 @@ resource "aws_api_gateway_deployment" "api" {
 
   triggers = {
     redeployment = sha1(jsonencode({
-      routes      = local.api_routes
-      integration = aws_lambda_function.api.source_code_hash
+      routes       = local.api_routes
+      integration  = aws_lambda_function.api.source_code_hash
+      applications = local.client_application_methods
+      support      = keys(aws_api_gateway_method.support)
+      client       = aws_cognito_user_pool_client.portal.id
     }))
   }
 
   depends_on = [
-    aws_api_gateway_integration.route
+    aws_api_gateway_integration.route,
+    aws_api_gateway_integration.applications,
+    aws_api_gateway_integration.support
   ]
 
   lifecycle {

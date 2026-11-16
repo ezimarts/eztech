@@ -30,6 +30,14 @@ output "orders_endpoint" {
   value = "${aws_api_gateway_stage.prod.invoke_url}/orders"
 }
 
+output "orders_counter_table_name" {
+  value = aws_dynamodb_table.counters.name
+}
+
+output "orders_archive_bucket_name" {
+  value = aws_s3_bucket.orders_archive.bucket
+}
+
 output "payments_endpoint" {
   value = "${aws_api_gateway_stage.prod.invoke_url}/payments"
 }

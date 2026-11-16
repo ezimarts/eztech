@@ -24,11 +24,39 @@ resource "aws_cloudfront_origin_access_control" "website" {
 }
 
 resource "aws_s3_object" "index" {
-  bucket       = aws_s3_bucket.website.id
-  key          = "index.html"
-  source       = "${path.module}/index.html"
-  content_type = "text/html"
-  etag         = filemd5("${path.module}/index.html")
+  bucket        = aws_s3_bucket.website.id
+  key           = "index.html"
+  source        = "${path.module}/index.html"
+  content_type  = "text/html"
+  etag          = filemd5("${path.module}/index.html")
+  cache_control = "no-cache"
+
+  depends_on = [
+    aws_s3_object.portal_script,
+    aws_s3_object.portal_config,
+    aws_s3_object.homepage_image,
+    aws_s3_object.brand_visuals,
+  ]
+}
+
+resource "aws_s3_object" "brand_visuals" {
+  for_each = toset(["eziwebtech.png", "eziwebtech-1.png"])
+
+  bucket        = aws_s3_bucket.website.id
+  key           = each.key
+  source        = "${path.module}/${each.key}"
+  content_type  = "image/png"
+  etag          = filemd5("${path.module}/${each.key}")
+  cache_control = "no-cache"
+}
+
+resource "aws_s3_object" "homepage_image" {
+  bucket        = aws_s3_bucket.website.id
+  key           = "assets/ezi-cloud-consulting.png"
+  source        = "${path.module}/assets/ezi-cloud-consulting.png"
+  content_type  = "image/png"
+  etag          = filemd5("${path.module}/assets/ezi-cloud-consulting.png")
+  cache_control = "no-cache"
 }
 
 resource "aws_cloudfront_distribution" "cdn" {

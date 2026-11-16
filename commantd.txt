@@ -1,0 +1,21 @@
+#Invalidate catch
+aws s3 sync ./frontend s3://eztech-website --delete && aws cloudfront create-invalidation --distribution-id E3LZFQXATFLE84 --paths '/*'"
+aws cloudfront create-invalidation `
+
+aws cloudfront create-invalidation --distribution-id E3LZFQXATFLE84 --paths '/*'"
+
+#Test backend directly
+$body = @{
+  name           = "Zahid Ullah"
+  email          = "zahidullah67@gmail.com"
+  phone          = "16466374619"
+  helpWith       = "New business website"
+  projectContext = "Need a website"
+  source         = "website"
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+  -Method Post `
+  -Uri "https://s09ffx7msl.execute-api.us-east-1.amazonaws.com/prod/orders" `
+  -ContentType "application/json" `
+  -Body $body

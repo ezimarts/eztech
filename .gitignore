@@ -22,6 +22,7 @@ override.tf.json
 # Ignore Terraform plan files
 *.tfplan
 *.plan
+support-mail.zip
 
 # Ignore CLI configuration files
 .terraformrc
@@ -58,3 +59,4 @@ secrets.tfvars
 secrets.txt
 *.tfvars
 
+/eztech/tfplan

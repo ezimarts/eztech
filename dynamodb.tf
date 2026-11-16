@@ -69,3 +69,21 @@ resource "aws_dynamodb_table" "products" {
     prevent_destroy = true
   }
 }
+
+resource "aws_dynamodb_table" "counters" {
+  name                        = "${var.project_name}-counters"
+  billing_mode                = "PAY_PER_REQUEST"
+  hash_key                    = "counterName"
+  deletion_protection_enabled = true
+
+  attribute {
+    name = "counterName"
+    type = "S"
+  }
+
+  tags = local.common_tags
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
