@@ -60,3 +60,5 @@ secrets.txt
 *.tfvars
 
 /eztech/tfplan
+4incorp/
+base/

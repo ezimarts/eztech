@@ -1995,6 +1995,123 @@
       .proof-item:nth-child(-n+2) { border-bottom: 1px solid #e4ebf3; }
     }
   </style>
+  <style>
+    .hero.launch-splash {
+      background: linear-gradient(120deg, #09212c, #0c3641 64%, #104550);
+      color: #fff;
+      padding-bottom: clamp(40px, 6vw, 92px);
+    }
+    .launch-splash .hero-grid { align-items: center; }
+    .launch-splash .eyebrow { color: #a0ebdf; background: transparent; border-color: #487984; }
+    .launch-splash h1 {
+      color: #fff;
+      font-size: clamp(2.7rem, 5.5vw, 5.55rem);
+      line-height: 1.02;
+      max-width: 12ch;
+    }
+    .launch-splash h1 span { color: #93e5d7; }
+    .launch-splash .hero-copy > p { color: #d4e5e9; max-width: 47ch; }
+    .splash-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      border: 0;
+      margin: 24px 0 0;
+    }
+    .splash-choices legend { margin-bottom: 10px; font-weight: 700; }
+    .splash-choices label { position: relative; }
+    .splash-choices input {
+      position: absolute;
+      opacity: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      margin: 0;
+    }
+    .splash-choices span {
+      display: block;
+      padding: 9px 13px;
+      border: 1px solid #7aa1ab;
+      border-radius: 8px;
+      color: #fff;
+      font-size: .9rem;
+    }
+    .splash-choices input:hover + span { border-color: #a0ebdf; }
+    .splash-choices input:checked + span { background: #a0ebdf; border-color: #a0ebdf; color: #09212c; font-weight: 700; }
+    .splash-choices input:focus-visible + span { outline: 2px solid #fff; outline-offset: 3px; }
+    .launch-splash .hero-copy > .splash-guidance { margin: 11px 0 0; font-size: .94rem; min-height: 3em; }
+    .launch-splash .actions { margin-top: 15px; }
+    .launch-splash .trust-row { color: #d4e5e9; margin-top: 18px; }
+    .launch-splash .btn-primary { color: #09212c; background: #a0ebdf; }
+    .launch-splash .btn-primary:hover { color: #09212c; background: #c4fbf2; }
+    .launch-splash .btn-ghost { color: #fff; border-color: #7aa1ab; }
+    .launch-splash .btn-ghost:hover { color: #09212c; background: #e2fbf7; }
+    .launch-splash .splash-picture { border-color: #7195a0; box-shadow: 0 24px 60px #03171d80; }
+    @media (max-width: 540px) {
+      .launch-splash h1 { font-size: clamp(2.4rem, 10vw, 3.25rem); }
+      .launch-splash .actions .btn { width: 100%; }
+    }
+  </style>
+
+  <style id="customer-homepage">
+    :root { --customer-navy: #102c35; --customer-teal: #00675f; }
+    .hero.launch-splash {
+      background: linear-gradient(130deg, #f7fbf8 35%, #e1f1ed);
+      color: var(--customer-navy);
+      padding-bottom: clamp(48px, 7vw, 104px);
+    }
+    .launch-splash .hero-grid { gap: clamp(28px, 5vw, 78px); }
+    .launch-splash h1 {
+      color: var(--customer-navy);
+      font-size: clamp(2.65rem, 5vw, 4.9rem);
+      letter-spacing: -.055em;
+      max-width: 15ch;
+    }
+    .launch-splash h1 span { color: var(--customer-teal); }
+    .launch-splash .eyebrow { color: #236356; border-color: #b2d1c7; }
+    .launch-splash .hero-copy > p, .launch-splash .trust-row { color: #365661; }
+    .launch-splash .splash-choices { margin-top: 22px; }
+    .launch-splash .splash-choices span {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      color: #234853;
+      background: #fff;
+      border-color: #aec8c5;
+    }
+    .launch-splash .splash-choices input:checked + span {
+      background: #d6efe7;
+      border-color: #007465;
+      color: #13483f;
+    }
+    .launch-splash .splash-choices input:focus-visible + span,
+    .launch-splash a:focus-visible {
+      outline: 3px solid #00675f;
+      outline-offset: 3px;
+    }
+    .launch-splash .btn-primary { background: var(--customer-teal); color: #fff; }
+    .launch-splash .btn-primary:hover { background: #084d48; color: #fff; }
+    .launch-splash .btn-ghost { color: #1b514e; background: #fff; border-color: #a4c0bb; }
+    .launch-splash .btn-ghost:hover { background: #d6efe7; color: #102c35; }
+    .launch-splash .splash-picture {
+      border: 1px solid #b5ccc8;
+      border-radius: 22px;
+      box-shadow: 0 25px 56px #173c3b26;
+    }
+    #services .service {
+      border-radius: 16px;
+      border-color: #ceddda;
+      box-shadow: 0 8px 24px #183b3210;
+    }
+    #services .service:focus-within { outline: 2px solid var(--customer-teal); outline-offset: 3px; }
+    #process .step { border-radius: 16px; }
+    @media (max-width: 540px) {
+      .launch-splash h1 { font-size: clamp(2.4rem, 10vw, 3.25rem); }
+      .launch-splash .splash-choices label { flex: 1 1 44%; }
+    }
+  </style>
 </head>
 
 <body>
@@ -2009,7 +2126,7 @@
         <div class="nav-group">
           <a href="#services">Services</a>
           <a href="#outcomes">Why us</a>
-          <a href="#process">Process</a>
+          <a href="#process">Our approach</a>
           <a href="#technology">Technology</a>
         </div>
         <form class="site-search" id="siteSearch" role="search">
@@ -2029,18 +2146,27 @@
   </header>
 
   <main id="top">
-    <section class="hero">
+    <section class="hero launch-splash" aria-labelledby="splash-title">
       <div class="hero-grid wrap">
         <div class="hero-copy">
           <span class="eyebrow">Web design &amp; cloud engineering</span>
-          <h1>Websites built to <span class="gradient-text">win customers.</span></h1>
-          <p>We design, build, and support websites and cloud platforms for growing businesses.</p>
-          <div class="actions"><a class="btn btn-primary" href="#contact">Get a free website consultation
-              <span>→</span></a><a class="btn btn-ghost" href="#services">Explore our services</a></div>
-          <div class="trust-row"><span>Mobile-first design</span><span>Fast & SEO-ready</span><span>Secure AWS
-              hosting</span></div>
+          <h1 id="splash-title">Make it easier for customers to <span>choose you.</span></h1>
+          <p>Get a website, online store, or custom application built around what your customers need and how your business works.</p>
+          <fieldset class="splash-choices">
+            <legend>What would you like to build?</legend>
+            <label><input type="radio" name="splash-project" value="New business website" checked><span>Launch a website</span></label>
+            <label><input type="radio" name="splash-project" value="Website redesign"><span>Reimagine my site</span></label>
+            <label><input type="radio" name="splash-project" value="E-commerce website"><span>Online store</span></label>
+            <label><input type="radio" name="splash-project" value="Custom web application"><span>Build a custom app</span></label>
+          </fieldset>
+          <p class="splash-guidance" id="splash-guidance" aria-live="polite">Tell us what you do and what customers should be able to do on your new site.</p>
+          <div class="actions">
+            <a class="btn btn-primary" id="splash-consultation" href="#contact">Book a free consultation <span aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#client-portal">Create a client account</a>
+          </div>
+          <div class="trust-row"><span>Free first consultation</span><span>Built around your business</span></div>
         </div>
-        <figure class="live-picture">
+        <figure class="live-picture splash-picture">
           <img src="assets/ezi-cloud-consulting.png"
             alt="A responsive website displayed on a laptop and smartphone" fetchpriority="high">
         </figure>
@@ -2059,7 +2185,7 @@
     <section class="services" id="services">
       <div class="wrap">
         <div class="section-head reveal"><span class="eyebrow">Website services</span>
-          <h2>Web design, development, and cloud services</h2>
+          <h2>Find the right service for your business</h2>
           <p>From brand direction and UX to development, hosting, and ongoing improvement—one expert partner from idea
             to launch.</p>
         </div>
@@ -2224,14 +2350,14 @@
     <section id="process">
       <div class="wrap">
         <div class="section-head center reveal"><span class="eyebrow">Our design process</span>
-          <h2>From first idea to confident launch.</h2>
-          <p>A collaborative process with clear milestones, visible progress, and thoughtful decisions at every stage.
+          <h2>What it’s like to work with us</h2>
+          <p>We get to know your business, design around your customers, and stay with you from the first conversation through launch and ongoing care.
           </p>
         </div>
         <div class="process-grid">
           <div class="step reveal"><span class="step-num">01</span>
             <h3>Discover</h3>
-            <p>Clarify your audience, goals, offers, content, budget, and measures of success.</p>
+            <p>We learn what you offer, who you want to reach, and what success looks like for your business.</p>
           </div>
           <div class="step reveal"><span class="step-num">02</span>
             <h3>Design</h3>
@@ -2243,7 +2369,7 @@
           </div>
           <div class="step reveal"><span class="step-num">04</span>
             <h3>Launch & grow</h3>
-            <p>Deploy securely, measure performance, and support ongoing improvements.</p>
+            <p>We launch your site securely, measure how it performs, and help you improve it as your business grows.</p>
           </div>
         </div>
       </div>
@@ -2344,7 +2470,7 @@
     <section class="contact" id="contact">
       <div class="contact-grid wrap">
         <div class="contact-copy reveal"><span class="eyebrow">Free consultation</span>
-          <h2>Let’s build a website your customers remember.</h2>
+          <h2>Tell us about your project.</h2>
           <p>Tell us about your business, your audience, and what your current website needs to do better. We’ll reply
             with a practical next step.</p>
           <p>Want to track your request online? Submit it through the <a href="#client-portal">client portal</a>.</p>
@@ -2377,11 +2503,11 @@
     <section class="contact" id="client-portal">
       <div class="contact-grid wrap">
         <div class="contact-copy">
-          <h2>Client portal</h2>
-          <p>Submit a project request as a guest, or sign in to submit an application and track its status online.</p>
+          <h2>Let’s work together.</h2>
+          <p>Create a client account to start a project and track its progress online. You can also send a project brief as a guest.</p>
           <div class="actions">
-            <a class="btn btn-primary" href="#contact">Continue as guest</a>
-            <button class="btn btn-ghost" id="portalLogin" type="button">Sign in or create an account</button>
+            <button class="btn btn-primary" id="portalLogin" type="button">Sign in or create an account</button>
+            <a class="btn btn-ghost" href="#contact">Continue as guest</a>
           </div>
         </div>
         <div class="portal-panel">
@@ -2718,6 +2844,27 @@
         contactSubmitButton.innerHTML = 'Send project brief <span>→</span>';
       }
     });
+  </script>
+  <script>
+    (() => {
+      const splash = document.querySelector(".launch-splash");
+      const guidance = document.getElementById("splash-guidance");
+      const consultation = document.getElementById("splash-consultation");
+      const service = document.getElementById("service");
+      const prompts = {
+        "New business website": "Tell us what you do and what customers should be able to do on your new site.",
+        "Website redesign": "Share your current site and what you want it to do better.",
+        "E-commerce website": "Tell us what you sell and how you want customers to order and pay.",
+        "Custom web application": "Describe the workflow, portal, or tool you need for your team or customers."
+      };
+      splash.addEventListener("change", event => {
+        if (event.target.name === "splash-project") guidance.textContent = prompts[event.target.value];
+      });
+      consultation.addEventListener("click", () => {
+        service.value = splash.querySelector('input[name="splash-project"]:checked').value;
+        service.dispatchEvent(new Event("change", {bubbles: true}));
+      });
+    })();
   </script>
 </body>
 
